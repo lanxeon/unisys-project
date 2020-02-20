@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div>
+        <p style="color: darkgrey; font-size: small; float: right; margin-right: 80px;">{{ current_user.usn }} &nbsp; &nbsp; &nbsp; &nbsp; {{ current_user.email }}</p>
+    </div>
+    <div>
+        <p style = " margin-top: 50px; font-family: Cambria;">Wassup ma nigga, {{ current_user.fname }}</p>
+    </div>
+{% endblock %}

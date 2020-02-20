@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Chat Room</title>
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<!-- DONT TOUCH THE FCKING SCRIPT. IF YOU WANNA BEAUTIFY THE LAYOUT, JUST TOUCH THE OTHER SHIT(LMAO)-->
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+        //socketio.emit('user joined', user.usn, namespace = '/private')
+        var socket = io();
+        var socket_private = io.connect('/private');
+
+        //regular sockets
+        /*
+        socket.on('connect', function() {
+            socket.send('User has connected!');
+            console.log("NIGggggzzz");
+        });
+        
+        socket.on('message', function(msg) {
+            $("#messages").append('<li>'+msg+'</li>');
+            console.log('Received message');
+        });
+
+        $('#sendbutton').on('click', function() {
+            socket.send($('#myMessage').val());
+            $('#myMessage').val('');
+        });
+        */
+        
+        //private sockets
+
+        socket_private.on('user logged in', (usn)=>{
+            console.log('user with username '+usn+' has connected on client side');
+        });
+
+        socket_private.on('new private message', function(msg) {
+            $("#messages").append('<li>'+msg+'</li>');
+            console.log('Received message');
+        });
+
+        $('#sendbutton').on('click', function() {
+            var recipient = $('#send_to_username').val();
+            var message_to_send = $('#myMessage').val()
+            socket_private.emit('private message', {'username' : recipient, 'message' : message_to_send});
+            $('#myMessage').val('');
+        });
+
+    });
+    </script>
+<!-- START MANIPULATING SHIT FROM HERE ON OUT FOR THE LAYOUT. IF YOU ADD ANY ID(FOR ADDING BEHAVIOUR) MENTION THEM AT THE END WITH A COMMENT -->
+
+<ul id="messages"></ul>
+Send To: <input type="text" id="send_to_username">
+Send Message: <input type="text" id="myMessage">
+<button id="sendbutton">Send</button>
+</body>
+</html>

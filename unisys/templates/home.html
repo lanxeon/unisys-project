@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="bootstrap.css"> 
+  <link rel="stylesheet" type="text/css" href="bootstrap_responsive.css"> 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/styles.css') }}" />
+  <link href='https://fonts.googleapis.com/css?family=Raleway' type="text/css" rel='stylesheet'>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+
+
+  .animate {
+  text-align:center;
+  font-family:'Raleway';
+  overflow:hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -webkit-transform: translate3d(0,0,0);
+}
+
+.animate .a1 {
+  display:inline-block;
+  overflow:hidden;
+  white-space:nowrap;
+}
+
+.animate .fot {    /* For increasing performance 
+                       ID/Class should've been used. 
+                       For a small demo 
+                       it's okaish for now */
+  animation: showup 7s infinite;
+}
+.animate .lot {
+  width:0px;
+  animation: reveal 7s infinite;
+}
+
+.animate .lots {
+  margin-left:-355px;
+  animation: slidein 7s infinite;
+}
+
+@keyframes showup {
+    0% {opacity:0;}
+    20% {opacity:1;}
+    80% {opacity:1;}
+    100% {opacity:0;}
+}
+
+@keyframes slidein {
+    0% { margin-left:-800px; }
+    20% { margin-left:-800px; }
+    35% { margin-left:0px; }
+    100% { margin-left:0px; }
+}
+
+@keyframes reveal {
+    0% {opacity:0;width:0px;}
+    20% {opacity:1;width:0px;}
+    30% {width:355px;}
+    80% {opacity:1;}
+    100% {opacity:0;width:355px;}
+}
+
+
+.headbg {
+  height: 10%;
+  /* max-height: 600px; */
+  width: 1519px;
+  background-color: hsla(200,40%,30%,.4);
+  background-image:   
+    url('https://78.media.tumblr.com/cae86e76225a25b17332dfc9cf8b1121/tumblr_p7n8kqHMuD1uy4lhuo1_540.png'), 
+    url('https://78.media.tumblr.com/28bd9a2522fbf8981d680317ccbf4282/tumblr_p7n8kqHMuD1uy4lhuo3_1280.png');
+  background-repeat: repeat-x;
+  background-position: 
+    0 20%,
+    0 100%,
+    0 50%,
+    0 100%,
+    0 0;
+  background-size: 
+    2500px,
+    800px,
+    500px 200px,
+    1000px,
+    400px 260px;
+  animation: 50s para infinite linear;
+  }
+
+@keyframes para {
+  100% {
+    background-position: 
+      -5000px 20%,
+      -800px 95%,
+      500px 50%,
+      1000px 100%,
+      400px 0;
+    }
+  }
+
+  body, html {
+    min-width:500px;
+    height:100%;
+    margin:0;
+  }
+  .logo
+    {
+      position: absolute;
+      top: 30px;
+      left: 55px;
+    }
+  .head {
+  padding: 30px;
+  text-align: center;
+  color: white;
+}  
+@media only screen and (max-width:1920px) {
+  /* For tablets: */
+  .bgi {
+    width: 100%;
+    width:100%;
+    padding: 0;
+  }
+  .centered {
+  position: absolute;
+  top: 23%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+  h1 { font-family: Raleway; font-size: 38px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 37.5px; }
+
+  .head {
+    width: 100%;
+  }
+}
+@media only screen and (max-width:500px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
+    width: 100%;
+  }
+}
+  
+  .header {
+  padding: 0px;
+  text-align: center;
+  color: #622569;  
+}
+
+.centered {
+  position: absolute;
+  top: 23%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.centeres {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+  .bgi  {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height:100%;
+  width:100%;
+}
+  .row {
+  display: flex;
+}
+/* Create three equal columns that sits next to each other */
+.column {
+  flex: 24.33%;
+  padding: 5px;
+}
+  .carousel{
+    background-image: linear-gradient(white, black);
+}
+.carousel-item{
+    text-align: center;
+    max-height: 500px; /* Prevent carousel from being distorted if for some reason image doesn't load */
+}
+.bs-example{
+  margin: 0px;
+}
+#grad { 
+  height: 100%;
+  
+}
+h1 { font-family: Raleway; font-size: 38px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 37.5px; } h2 { font-family: Raleway; font-size: 24px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; } h3 { font-family: Raleway; font-size: 22px; font-style: normal; font-variant: normal; font-weight: 700; } h5 { font-family: Raleway; font-size: 20px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 15.4px; } p { font-family: Raleway; font-size: 18px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } blockquote { font-family: Raleway; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; } pre { font-family: Raleway; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5714px; }
+</style>
+</head>
+<body>	
+    <div class="header">
+    <a href="https://www.unisys.com/" target="_blank"><img class="logo" src="{{ user_image }}" alt="User Image" ></a>
+    <img class="bgi" src="{{ bg_image }}" alt="background" >
+    
+    <div class="centered">
+    <h1 >How many languages do you need to know to communicate with the rest of the world?</h1>
+    </div>
+  
+    <div class="centeres">
+    <div class="animate">
+      <div class="a1">
+        <div class="fot">
+          <h3>Just One!</h3>
+          <div class="lot">
+            <div class="lots">
+          <h1 style="color: black">Your Own.</h1>
+        </div>
+        </div>
+        </div>
+        </div>
+         </div>
+      </div>
+    </div><!--	
+  --><div align='center'><!--
+   --><div class="headbg"><!--
+  --><div class="head"><!--      
+ 
+	--><h3>How does our product work?</h3>
+</div><!--
+--></div><!--
+	--><div class="bs-example"><!--
+    --><div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Carousel indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+            <li data-target="#myCarousel" data-slide-to="5"></li>
+        </ol>
+        <!-- Wrapper for carousel items -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="bgi" src="{{ user_image1 }}" alt="First Slide" style="width:3000px">
+                 <div class="carousel-caption">
+          <h5>First slide label</h5>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </div>
+            </div>
+            <div class="carousel-item">
+                <div>
+                  <img class="bgi" src="{{ user_image1 }}" alt="First Slide">
+                </div>
+
+                <!--<img src="{{ user_image2 }}" alt="Second Slide" style="width:250px">-->
+                <div class="carousel-caption">
+          <h5>First slide label</h5>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ user_image3 }}" alt="Third Slide" style="width:3000px">
+                <div class="carousel-caption">
+          <h5>First slide label</h5>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </div>
+            </div>
+        </div>
+        <!-- Carousel controls -->
+        <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+  </div>
+    <h3>Main Features</h3>
+    <h2>Meet the team</h2>
+  </div>
+  <div class="wrapper">
+    <div class="team">
+      <div class="team_member">
+        <img src="{{ user_image4 }}" alt="Snow" style="width:40%">
+        <h3>Sonali Pandey</h3>
+        <span>sonali.pandey2226@gmail.com</span>
+        <h3>BACK-END DEVELOPER</h3>
+      </div>
+      <div class="team_member">
+        <img src="{{ user_image4 }}" alt="Snow" style="width:40%">
+        <h3>Swapnonil Bandyopadhyay</h3>
+        <span>swapdasa@gmail.com</span>
+        <h3>The nigger
+        </h3>
+      </div>
+      <div class="team_member">
+        <img src="{{ user_image4 }}" alt="Snow" style="width:40%">
+        <h3>Sushmitha S Nayak</h3>
+        <span>alex@gmail.com</span>
+        <h3>idek
+        </h3>
+      </div>
+      <div class="team_member">
+        <img src="{{ user_image4 }}" alt="Snow" style="width:40%">
+        <h3>D Prasanna Sai Rohit</h3>
+        <span>alex@gmail.com</span>
+        <h3>Sick front end
+        </h3>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
