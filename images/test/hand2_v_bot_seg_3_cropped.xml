@@ -1,0 +1,26 @@
+<annotation>
+	<folder>v</folder>
+	<filename>hand2_v_bot_seg_3_cropped.jpeg</filename>
+	<path>D:\images\test\v\hand2_v_bot_seg_3_cropped.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>400</width>
+		<height>400</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>v</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>98</xmin>
+			<ymin>2</ymin>
+			<xmax>304</xmax>
+			<ymax>396</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>o</folder>
+	<filename>WIN_20200228_18_56_19_Pro.jpg</filename>
+	<path>F:\images\train\o\WIN_20200228_18_56_19_Pro.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>o</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>442</xmin>
+			<ymin>311</ymin>
+			<xmax>647</xmax>
+			<ymax>558</ymax>
+		</bndbox>
+	</object>
+</annotation>

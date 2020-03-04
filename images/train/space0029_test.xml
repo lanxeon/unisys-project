@@ -1,0 +1,26 @@
+<annotation>
+	<folder>space</folder>
+	<filename>space0029_test.jpg</filename>
+	<path>C:\Users\User\Desktop\maskr_dataset\space\space0029_test.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>200</width>
+		<height>200</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>space</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>109</xmin>
+			<ymin>82</ymin>
+			<xmax>192</xmax>
+			<ymax>165</ymax>
+		</bndbox>
+	</object>
+</annotation>

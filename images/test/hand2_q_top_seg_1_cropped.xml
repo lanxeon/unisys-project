@@ -1,0 +1,26 @@
+<annotation>
+	<folder>q</folder>
+	<filename>hand2_q_top_seg_1_cropped.jpeg</filename>
+	<path>D:\images\test\q\hand2_q_top_seg_1_cropped.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>400</width>
+		<height>400</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>q</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>14</ymin>
+			<xmax>400</xmax>
+			<ymax>388</ymax>
+		</bndbox>
+	</object>
+</annotation>

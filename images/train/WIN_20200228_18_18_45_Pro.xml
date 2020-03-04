@@ -1,0 +1,26 @@
+<annotation>
+	<folder>q</folder>
+	<filename>WIN_20200228_18_18_45_Pro.jpg</filename>
+	<path>F:\images\train\q\WIN_20200228_18_18_45_Pro.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>q</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>180</xmin>
+			<ymin>230</ymin>
+			<xmax>484</xmax>
+			<ymax>540</ymax>
+		</bndbox>
+	</object>
+</annotation>

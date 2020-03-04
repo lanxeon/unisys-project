@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>hand1_d_bot_seg_4_cropped.jpeg</filename>
+	<path>C:\Users\User\Desktop\sonali-maskr dataset\train\hand1_d_bot_seg_4_cropped.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>400</width>
+		<height>400</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>d</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>63</xmin>
+			<ymin>1</ymin>
+			<xmax>333</xmax>
+			<ymax>400</ymax>
+		</bndbox>
+	</object>
+</annotation>

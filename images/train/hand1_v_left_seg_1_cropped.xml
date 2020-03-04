@@ -1,0 +1,26 @@
+<annotation>
+	<folder>v</folder>
+	<filename>hand1_v_left_seg_1_cropped.jpeg</filename>
+	<path>F:\images\train\v\hand1_v_left_seg_1_cropped.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>400</width>
+		<height>400</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>v</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>90</xmin>
+			<ymin>1</ymin>
+			<xmax>309</xmax>
+			<ymax>400</ymax>
+		</bndbox>
+	</object>
+</annotation>

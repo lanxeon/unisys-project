@@ -1,0 +1,26 @@
+<annotation>
+	<folder>r</folder>
+	<filename>hand5_r_dif_seg_2_cropped.jpeg</filename>
+	<path>F:\images\train\r\hand5_r_dif_seg_2_cropped.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>400</width>
+		<height>400</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>r</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>106</xmin>
+			<ymin>1</ymin>
+			<xmax>293</xmax>
+			<ymax>400</ymax>
+		</bndbox>
+	</object>
+</annotation>

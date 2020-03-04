@@ -1,0 +1,26 @@
+<annotation>
+	<folder>u</folder>
+	<filename>WIN_20200228_20_10_35_Pro.jpg</filename>
+	<path>D:\images\test\u\WIN_20200228_20_10_35_Pro.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>u</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>370</xmin>
+			<ymin>245</ymin>
+			<xmax>534</xmax>
+			<ymax>525</ymax>
+		</bndbox>
+	</object>
+</annotation>

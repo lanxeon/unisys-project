@@ -1,0 +1,26 @@
+<annotation>
+	<folder>x</folder>
+	<filename>WIN_20200228_20_46_22_Pro.jpg</filename>
+	<path>D:\images\test\x\WIN_20200228_20_46_22_Pro.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>x</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>340</xmin>
+			<ymin>109</ymin>
+			<xmax>524</xmax>
+			<ymax>409</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,26 @@
+<annotation>
+	<folder>v</folder>
+	<filename>WIN_20200228_20_19_40_Pro.jpg</filename>
+	<path>F:\images\train\v\WIN_20200228_20_19_40_Pro.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>v</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>430</xmin>
+			<ymin>55</ymin>
+			<xmax>649</xmax>
+			<ymax>361</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,10 +1,13 @@
-from flask import render_template, url_for, request, redirect, flash, request, session
+from flask import render_template, url_for, request, redirect, flash, request, session, Response
 from unisys import app, lm, bcrypt, db, socketio
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_socketio import send, emit
 import os
+from unisys.Object_detection_webcam import VideoCamera
 from unisys.forms import Registration, Login
 from unisys.models import User
+
+
 
 users = {}
 
@@ -73,7 +76,7 @@ def chat():
 def account():
 	return render_template('account.html')
 
-
+'''
 @app.route('/webrtc', methods = ['GET', 'POST'])
 def webrtc():
 	return render_template('webrtc.html')
@@ -82,6 +85,21 @@ def webrtc():
 @app.route('/webrtc2', methods = ['GET', 'POST'])
 def webrtc2():
 	return render_template('webrtc2.html')
+'''
+
+def gen(camera):
+	while True:
+		frame, sentence_generated, sentence  = camera.get_frame()
+		if sentence_generated:
+			print('sentence successfully returned'+ sentence)
+		yield (b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(VideoCamera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 

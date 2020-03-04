@@ -1,0 +1,26 @@
+<annotation>
+	<folder>n</folder>
+	<filename>WIN_20200228_17_58_07_Pro.jpg</filename>
+	<path>D:\images\test\n\WIN_20200228_17_58_07_Pro.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>n</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>440</xmin>
+			<ymin>427</ymin>
+			<xmax>677</xmax>
+			<ymax>655</ymax>
+		</bndbox>
+	</object>
+</annotation>

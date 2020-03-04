@@ -1,0 +1,26 @@
+<annotation>
+	<folder>s</folder>
+	<filename>hand2_s_left_seg_4_cropped.jpeg</filename>
+	<path>D:\images\test\s\hand2_s_left_seg_4_cropped.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>400</width>
+		<height>400</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>s</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>53</xmin>
+			<ymin>1</ymin>
+			<xmax>345</xmax>
+			<ymax>398</ymax>
+		</bndbox>
+	</object>
+</annotation>

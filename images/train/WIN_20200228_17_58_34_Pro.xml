@@ -1,0 +1,26 @@
+<annotation>
+	<folder>n</folder>
+	<filename>WIN_20200228_17_58_34_Pro.jpg</filename>
+	<path>F:\images\train\n\WIN_20200228_17_58_34_Pro.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>n</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>458</xmin>
+			<ymin>297</ymin>
+			<xmax>682</xmax>
+			<ymax>561</ymax>
+		</bndbox>
+	</object>
+</annotation>

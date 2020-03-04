@@ -1,0 +1,26 @@
+<annotation>
+	<folder>n</folder>
+	<filename>hand3_n_dif_seg_5_cropped.jpeg</filename>
+	<path>D:\images\train\n\hand3_n_dif_seg_5_cropped.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>400</width>
+		<height>400</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>n</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>34</xmin>
+			<ymin>3</ymin>
+			<xmax>365</xmax>
+			<ymax>398</ymax>
+		</bndbox>
+	</object>
+</annotation>

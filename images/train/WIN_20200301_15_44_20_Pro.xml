@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>WIN_20200301_15_44_20_Pro.jpg</filename>
+	<path>C:\Users\User\Desktop\train\WIN_20200301_15_44_20_Pro.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>a</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>397</xmin>
+			<ymin>335</ymin>
+			<xmax>542</xmax>
+			<ymax>459</ymax>
+		</bndbox>
+	</object>
+</annotation>

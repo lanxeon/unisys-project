@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>WIN_20200301_20_54_42_Pro.jpg</filename>
+	<path>C:\Users\User\Desktop\sonali-maskr dataset\train\WIN_20200301_20_54_42_Pro.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>b</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>223</xmin>
+			<ymin>196</ymin>
+			<xmax>447</xmax>
+			<ymax>581</ymax>
+		</bndbox>
+	</object>
+</annotation>

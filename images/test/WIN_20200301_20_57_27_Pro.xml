@@ -1,0 +1,26 @@
+<annotation>
+	<folder>test</folder>
+	<filename>WIN_20200301_20_57_27_Pro.jpg</filename>
+	<path>C:\Users\User\Desktop\sonali-maskr dataset\test\WIN_20200301_20_57_27_Pro.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>m</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>190</xmin>
+			<ymin>321</ymin>
+			<xmax>370</xmax>
+			<ymax>534</ymax>
+		</bndbox>
+	</object>
+</annotation>

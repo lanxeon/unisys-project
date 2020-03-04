@@ -1,0 +1,26 @@
+<annotation>
+	<folder>p</folder>
+	<filename>hand1_p_dif_seg_4_cropped.jpeg</filename>
+	<path>F:\images\train\p\hand1_p_dif_seg_4_cropped.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>400</width>
+		<height>400</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>p</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>104</ymin>
+			<xmax>399</xmax>
+			<ymax>295</ymax>
+		</bndbox>
+	</object>
+</annotation>

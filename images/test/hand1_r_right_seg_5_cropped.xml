@@ -1,0 +1,26 @@
+<annotation>
+	<folder>r</folder>
+	<filename>hand1_r_right_seg_5_cropped.jpeg</filename>
+	<path>D:\images\test\r\hand1_r_right_seg_5_cropped.jpeg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>400</width>
+		<height>400</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>r</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>99</xmin>
+			<ymin>2</ymin>
+			<xmax>299</xmax>
+			<ymax>395</ymax>
+		</bndbox>
+	</object>
+</annotation>

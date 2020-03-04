@@ -1,0 +1,26 @@
+<annotation>
+	<folder>s</folder>
+	<filename>WIN_20200228_18_39_00_Pro.jpg</filename>
+	<path>F:\images\train\s\WIN_20200228_18_39_00_Pro.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>s</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>561</xmin>
+			<ymin>343</ymin>
+			<xmax>777</xmax>
+			<ymax>584</ymax>
+		</bndbox>
+	</object>
+</annotation>
