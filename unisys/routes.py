@@ -74,6 +74,16 @@ def account():
 	return render_template('account.html')
 
 
+@app.route('/webrtc', methods = ['GET', 'POST'])
+def webrtc():
+	return render_template('webrtc.html')
+
+
+@app.route('/webrtc2', methods = ['GET', 'POST'])
+def webrtc2():
+	return render_template('webrtc2.html')
+
+
 
 ########################################################################################################################
 #####     SOCKET-IO ROUTES    #####
