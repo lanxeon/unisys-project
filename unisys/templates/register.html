@@ -1,11 +1,14 @@
-{% extends "layout.html" %}
+{% extends "layout1.html" %}
 {% block content %}
+<html>
+<body>
+<div class="box center">
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Join Today</legend>
-                <div class="form-group">
+            <fieldset class="form-group" align='center' style="color:white">
+                <legend class="border-bottom mb-4 h2" align='center'>Register Today!</legend>
+                <div class="form-group h5" style="color:white">
                     {{ form.fname.label(class="form-control-label") }}
 
                     {% if form.fname.errors %}
@@ -15,11 +18,11 @@
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.fname(class="form-control form-control-lg") }}
+                    {% else %}<br>
+                        {{ form.fname(class="form-control-sm") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group h5" style="color:white">
                     {{ form.lname.label(class="form-control-label") }}
 
                     {% if form.lname.errors %}
@@ -29,11 +32,11 @@
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.lname(class="form-control form-control-lg") }}
+                    {% else %}<br>
+                        {{ form.lname(class="form-control-sm") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group h5" style="color:white">
                     {{ form.usn.label(class="form-control-label") }}
 
                     {% if form.usn.errors %}
@@ -43,11 +46,11 @@
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.usn(class="form-control form-control-lg") }}
+                    {% else %}<br>
+                        {{ form.usn(class="form-control-sm") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group h5" style="color:white">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -56,11 +59,11 @@
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.email(class="form-control form-control-lg") }}
+                    {% else %}<br>
+                        {{ form.email(class="form-control-sm") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group h5"style="color:white">
                     {{ form.pwd.label(class="form-control-label") }}
                     {% if form.pwd.errors %}
                         {{ form.pwd(class="form-control form-control-lg is-invalid") }}
@@ -69,11 +72,11 @@
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.pwd(class="form-control form-control-lg") }}
+                    {% else %}<br>
+                        {{ form.pwd(class="form-control-sm") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form-group h5" style="color:white">
                     {{ form.repwd.label(class="form-control-label") }}
                     {% if form.repwd.errors %}
                         {{ form.repwd(class="form-control form-control-lg is-invalid") }}
@@ -82,19 +85,22 @@
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
-                    {% else %}
-                        {{ form.repwd(class="form-control form-control-lg") }}
+                    {% else %}<br>
+                        {{ form.repwd(class="form-control-sm") }}
                     {% endif %}
                 </div>
             </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+            <div class="form-group" align='center'>
+                {{ form.submit(class=" btn info") }}
             </div>
         </form>
     </div>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
+    <div class="border-top pt-2" align='center'>
+        <small class="text-muted h5">
+            <font color="white">Already Have An Account?</font> <a class="ml-2" href="{{ url_for('login') }}"><font class="h5"color="#2196F3"><strong>Sign In</strong></font></a>
         </small>
     </div>
+</div>
+</body>
+</html>
 {% endblock content %}

@@ -3,11 +3,10 @@ from unisys import app, lm, bcrypt, db, socketio
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_socketio import send, emit
 import os
-from unisys.Object_detection_webcam import VideoCamera
+import unisys.Object_detection_webcam as objDetApi
 from unisys.forms import Registration, Login
 from unisys.models import User
-
-
+from PIL import Image
 
 users = {}
 
@@ -15,12 +14,18 @@ users = {}
 @app.route('/home')
 def home():
 	full_filename = os.path.join(app.config['UPLOAD_FOLDER'], 'unisys_logo.jpg')
-	full_filename1 = os.path.join(app.config['UPLOAD_FOLDER'], 'abstract2.jpg')
-	full_filename2 = os.path.join(app.config['UPLOAD_FOLDER'], 'capacity.jpg')
-	full_filename3 = os.path.join(app.config['UPLOAD_FOLDER'], 'cover1.jpg')
-	full_filename4 = os.path.join(app.config['UPLOAD_FOLDER'], 'pp1.png')
+	full_filename1 = os.path.join(app.config['UPLOAD_FOLDER'], 'blue.jfif')
+	full_filename2 = os.path.join(app.config['UPLOAD_FOLDER'], 'slide3.jpg')
+	full_filename3 = os.path.join(app.config['UPLOAD_FOLDER'], 'orange.jfif')
+	full_filename4 = os.path.join(app.config['UPLOAD_FOLDER'], 'sonali.png')
 	full_filename5 = os.path.join(app.config['UPLOAD_FOLDER'], 'tp-01-02.jpeg')
-	return render_template('home.html',user_image = full_filename,user_image1 = full_filename1,user_image2 = full_filename2,user_image3 = full_filename3,user_image4 = full_filename4,bg_image = full_filename5)
+	full_filename6 = os.path.join(app.config['UPLOAD_FOLDER'], 'slide4.jpg')
+	full_filename7 = os.path.join(app.config['UPLOAD_FOLDER'], 'slide5.jfif')
+	full_filename8 = os.path.join(app.config['UPLOAD_FOLDER'], 'swapnonil.png')
+	full_filename9 = os.path.join(app.config['UPLOAD_FOLDER'], 'sushmitha.png')
+	full_filename10 = os.path.join(app.config['UPLOAD_FOLDER'], 'zeme.png')
+	return render_template('home.html',user_image = full_filename,user_image1 = full_filename1,user_image2 = full_filename2,user_image3 = full_filename3,user_image4 = full_filename4,bg_image = full_filename5,
+		user_image6 = full_filename6,user_image7 = full_filename7,user_image8 = full_filename8,user_image9 = full_filename9,user_image10 = full_filename10)
 
 
 @app.route('/about')
@@ -45,6 +50,7 @@ def register():
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
+	full_filename11 = os.path.join(app.config['UPLOAD_FOLDER'], 'login.jpeg')
 	if current_user.is_authenticated:
 		return redirect(url_for('home'))
 	form = Login()
@@ -57,7 +63,7 @@ def login():
 			next_page = request.args.get('next')
 			return redirect(next_page) if next_page else redirect(url_for('home'))
 
-	return render_template('login.html', form = form)
+	return render_template('login.html', form = form,user_image = full_filename11)
 
 @app.route('/logout')
 def logout():
@@ -68,6 +74,10 @@ def logout():
 @app.route('/chat')
 @login_required
 def chat():
+	#cam = VideoCamera()
+	#sentence_generated, generated_sentence = cam.get_frame()
+	#if sentence_generated:
+		#print(generated_sentence)
 	return render_template('chat.html')
 
 
@@ -76,10 +86,31 @@ def chat():
 def account():
 	return render_template('account.html')
 
+@app.route('/image', methods=['POST'])
+def image():
+    try:
+        image_file = request.files['image']  # get the image
+
+        # Set an image confidence threshold value to limit returned data
+        threshold = request.form.get('threshold')
+        if threshold is None:
+            threshold = 0.5
+        else:
+            threshold = float(threshold)
+
+        # finally run the image through tensor flow object detection`
+        image_object = Image.open(image_file)
+        objects = objDetApi.get_objects(image_object)
+        return objects
+
+    except Exception as e:
+        print('POST /image error: '+e)
+        return e
+
 '''
 @app.route('/webrtc', methods = ['GET', 'POST'])
 def webrtc():
-	return render_template('webrtc.html')
+	return render_template('chat.html')
 
 
 @app.route('/webrtc2', methods = ['GET', 'POST'])
@@ -87,6 +118,7 @@ def webrtc2():
 	return render_template('webrtc2.html')
 '''
 
+'''
 def gen(camera):
 	while True:
 		frame, sentence_generated, sentence  = camera.get_frame()
@@ -94,13 +126,13 @@ def gen(camera):
 			print('sentence successfully returned'+ sentence)
 		yield (b'--frame\r\n'
             b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-
-
+'''
+'''
 @app.route('/video_feed')
 def video_feed():
     return Response(gen(VideoCamera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
-
+'''
 
 
 ########################################################################################################################

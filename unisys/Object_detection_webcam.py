@@ -25,6 +25,10 @@ import tensorflow as tf
 import sys
 import math
 from spellchecker import SpellChecker
+import six.moves.urllib as urllib
+import tarfile
+import json
+
 
 spell = SpellChecker()
 
@@ -90,7 +94,22 @@ detection_classes = detection_graph.get_tensor_by_name('detection_classes:0')
 num_detections = detection_graph.get_tensor_by_name('num_detections:0')
 
 
+# added to put object in JSON
+class Object(object):
+    def __init__(self):
+        self.name="webrtcHacks TensorFlow Object Detection REST API"
 
+    def toJSON(self):
+        return json.dumps(self.__dict__)
+
+# Helper code
+def load_image_into_numpy_array(image):
+  (im_width, im_height) = image.size
+  return np.array(image.getdata()).reshape(
+      (im_height, im_width, 3)).astype(np.uint8)
+
+
+'''
 class VideoCamera(object):
     def __init__(self):
         self.video = cv2.VideoCapture(0)
@@ -167,9 +186,10 @@ class VideoCamera(object):
 
     # returns camera frames along with bounding boxes and predictions
     def get_frame(self):
-
+    
         #variable to check if final sentence has been generated
         sentence_generated = False
+        generated_sentence = None
 
         # Acquire frame and expand frame dimensions to have shape: [1, None, None, 3]
         # i.e. a single-column array, where each item in the column has the pixel RGB value
@@ -217,6 +237,7 @@ class VideoCamera(object):
                     
                     self.final_sentence = ' '.join(self.corrected_sentence)
                     print(self.final_sentence)
+                    generated_sentence = self.final_sentence
                     
                     self.sentence = []
                     self.corrected_sentence=[]
@@ -226,6 +247,7 @@ class VideoCamera(object):
 
 
         # Draw the results of the detection (aka 'visulaize the results')
+        
         vis_util.visualize_boxes_and_labels_on_image_array(
             frame,
             np.squeeze(boxes),
@@ -236,5 +258,194 @@ class VideoCamera(object):
             line_thickness=4,
             min_score_thresh=0.90)
         
-        _, jpeg = cv2.imencode('.jpg', frame)
-        return jpeg.tobytes(), sentence_generated, self.final_sentence
+        
+        #_, jpeg = cv2.imencode('.jpg', frame)
+        #return jpeg.tobytes(), sentence_generated, self.final_sentence
+        return sentence_generated, generated_sentence
+'''
+
+
+def numToWord(x):
+    if x == 1:
+        return 'a'
+    elif x == 2:
+        return 'b'
+    elif x == 3:
+        return 'c'
+    elif x == 4:
+        return 'd'
+    elif x == 5:
+        return 'e'
+    elif x == 6:
+        return 'f'
+    elif x == 7:
+        return 'g'
+    elif x == 8:
+        return 'h'
+    elif x == 9:
+        return 'i'
+    elif x == 10:
+        return 'k'
+    elif x == 11:
+        return 'l'
+    elif x == 12:
+        return 'm'
+    elif x == 13:
+        return 'n'
+    elif x == 14:
+        return 'o'
+    elif x == 15:
+        return 'p'
+    elif x == 16:
+        return 'q'
+    elif x == 17:
+        return 'r'
+    elif x == 18:
+        return 's'
+    elif x == 19:
+        return 't'
+    elif x == 20:
+        return 'u'
+    elif x == 21:
+        return 'v'
+    elif x == 22:
+        return 'w'
+    elif x == 23:
+        return 'x'
+    elif x == 24:
+        return 'y'
+    elif x == 25:
+        return ''
+    elif x == 26:
+        return '.'
+    else:
+        return '_'
+
+#initialization variables
+k = 1
+j = 0
+i = 0
+c = []
+d = []
+sentence = []
+corrected_sentence = []
+word = ''
+final_sentence = ''
+
+#variable to check if final sentence has been generated
+sentence_generated = False
+generated_sentence = None
+
+
+
+def get_objects(image):
+    global k
+    global j
+    global i
+    global c
+    global d
+    global sentence
+    global corrected_sentence
+    global word
+    global final_sentence
+
+    global sentence_generated
+    global generated_sentence
+
+    #load the image into a numpy array
+    frame = load_image_into_numpy_array(image)
+    # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
+    frame_expanded = np.expand_dims(frame, axis=0)
+
+
+    # Perform the actual detection by running the model with the image as input
+    (boxes, scores, classes, num) = sess.run(
+        [detection_boxes, detection_scores, detection_classes, num_detections],
+        feed_dict={image_tensor: frame_expanded})
+
+
+    scores_ = np.squeeze(scores)
+    classes_ = np.squeeze(classes)
+
+    if(max(scores_) >= 0.90):
+        c.append(classes_[np.argmax(scores_)])
+        i+=1
+        if i==3:
+            c = np.asarray(c, dtype = 'int64')
+            d.append(np.bincount(c).argmax())
+            i = 0
+            print(d)
+            c=[]
+
+            if d[j] != d[j-1] and j!=0:
+                word+=numToWord(d[j-1])
+                print(word)
+
+            if d[j]==25:
+                sentence.append(word)
+                word = ''
+
+            if d[j]==26:
+                sentence_generated = True
+                sentence.append(word)
+                word = ''
+                
+                misspelled = spell.unknown(sentence)
+
+                for w in misspelled:
+                    # Get the one `most likely` answer
+                    corrected_sentence.append(spell.correction(w))
+                
+                final_sentence = ' '.join(corrected_sentence)
+                print(final_sentence)
+                generated_sentence = final_sentence
+                
+                sentence = []
+                corrected_sentence=[]
+                final_sentence=''
+
+            j+=1
+
+    classes = np.squeeze(classes).astype(np.int32)
+    scores = np.squeeze(scores)
+    boxes = np.squeeze(boxes)
+
+
+    output = []
+    '''
+    # Add some metadata to the output
+    item = Object()
+    item.version = "0.0.1"
+    item.numObjects = obj_above_thresh
+    item.threshold = threshold
+    output.append(item)
+    '''
+
+    
+    for lol in range(0, len(classes)):
+        class_name = category_index[classes[lol]]['name']
+        if scores[lol] >= 0.90:      # only return confidences equal or greater than the threshold
+            #print(" object %s - score: %s, coordinates: %s" % (class_name, scores[c], boxes[c]))
+
+            item = Object()
+            item.name = 'Object'
+            item.class_name = class_name
+            item.score = float(scores[lol])
+            item.y = float(boxes[lol][0])
+            item.x = float(boxes[lol][1])
+            item.height = float(boxes[lol][2])
+            item.width = float(boxes[lol][3])
+            item.sentence_generated = "false"
+            item.generated_sentence = ""
+
+            if sentence_generated:
+                item.sentence_generated = "true"
+                item.generated_sentence = generated_sentence 
+                sentence_generated = False
+                generated_sentence = None
+
+            output.append(item)
+
+
+    outputJson = json.dumps([ob.__dict__ for ob in output])
+    return outputJson
