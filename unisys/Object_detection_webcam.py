@@ -109,162 +109,6 @@ def load_image_into_numpy_array(image):
       (im_height, im_width, 3)).astype(np.uint8)
 
 
-'''
-class VideoCamera(object):
-    def __init__(self):
-        self.video = cv2.VideoCapture(0)
-        #Intialize stuff for word correction
-        self.k = 1
-        self.j = 0
-        self.i = 0
-        self.c = []
-        self.d = []
-        self.sentence = []
-        self.corrected_sentence = []
-        self.word = ''
-        self.final_sentence = ''
-
-    def __del__(self):
-        self.video.release()
-    
-    #function for mapping number to words
-    def numToWord(self,x):
-        if x == 1:
-            return 'a'
-        elif x == 2:
-            return 'b'
-        elif x == 3:
-            return 'c'
-        elif x == 4:
-            return 'd'
-        elif x == 5:
-            return 'e'
-        elif x == 6:
-            return 'f'
-        elif x == 7:
-            return 'g'
-        elif x == 8:
-            return 'h'
-        elif x == 9:
-            return 'i'
-        elif x == 10:
-            return 'k'
-        elif x == 11:
-            return 'l'
-        elif x == 12:
-            return 'm'
-        elif x == 13:
-            return 'n'
-        elif x == 14:
-            return 'o'
-        elif x == 15:
-            return 'p'
-        elif x == 16:
-            return 'q'
-        elif x == 17:
-            return 'r'
-        elif x == 18:
-            return 's'
-        elif x == 19:
-            return 't'
-        elif x == 20:
-            return 'u'
-        elif x == 21:
-            return 'v'
-        elif x == 22:
-            return 'w'
-        elif x == 23:
-            return 'x'
-        elif x == 24:
-            return 'y'
-        elif x == 25:
-            return ''
-        elif x == 26:
-            return '.'
-        else:
-            return '_'
-
-    # returns camera frames along with bounding boxes and predictions
-    def get_frame(self):
-    
-        #variable to check if final sentence has been generated
-        sentence_generated = False
-        generated_sentence = None
-
-        # Acquire frame and expand frame dimensions to have shape: [1, None, None, 3]
-        # i.e. a single-column array, where each item in the column has the pixel RGB value
-        ret, frame = self.video.read()
-        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        frame_expanded = np.expand_dims(frame_rgb, axis=0)
-
-        # Perform the actual detection by running the model with the image as input
-        (boxes, scores, classes, num) = sess.run(
-            [detection_boxes, detection_scores, detection_classes, num_detections],
-            feed_dict={image_tensor: frame_expanded})
-
-
-        scores_ = np.squeeze(scores)
-        classes_ = np.squeeze(classes)
-
-        if(max(scores_) >= 0.90):
-            self.c.append(classes_[np.argmax(scores_)])
-            self.i+=1
-            if self.i==5:
-                self.c = np.asarray(self.c, dtype = 'int64')
-                self.d.append(np.bincount(self.c).argmax())
-                self.i = 0
-                print(self.d)
-                self.c=[]
-
-                if self.d[self.j] != self.d[self.j-1] and self.j!=0:
-                    self.word+=self.numToWord(self.d[self.j-1])
-                    print(self.word)
-
-                if self.d[self.j]==25:
-                    self.sentence.append(self.word)
-                    self.word = ''
-
-                if self.d[self.j]==26:
-                    sentence_generated = True
-                    self.sentence.append(self.word)
-                    self.word = ''
-                    
-                    misspelled = spell.unknown(self.sentence)
-
-                    for w in misspelled:
-                        # Get the one `most likely` answer
-                        self.corrected_sentence.append(spell.correction(w))
-                    
-                    self.final_sentence = ' '.join(self.corrected_sentence)
-                    print(self.final_sentence)
-                    generated_sentence = self.final_sentence
-                    
-                    self.sentence = []
-                    self.corrected_sentence=[]
-                    self.final_sentence=''
-
-                self.j+=1
-
-
-        # Draw the results of the detection (aka 'visulaize the results')
-        
-        vis_util.visualize_boxes_and_labels_on_image_array(
-            frame,
-            np.squeeze(boxes),
-            np.squeeze(classes).astype(np.int32),
-            np.squeeze(scores),
-            category_index,
-            use_normalized_coordinates=True,
-            line_thickness=4,
-            min_score_thresh=0.90)
-        
-        
-        #_, jpeg = cv2.imencode('.jpg', frame)
-        #return jpeg.tobytes(), sentence_generated, self.final_sentence
-        return sentence_generated, generated_sentence
-'''
-
-
 def numToWord(x):
     if x == 1:
         return 'a'
@@ -332,18 +176,22 @@ corrected_sentence = []
 word = ''
 final_sentence = ''
 
-#variable to check if final sentence has been generated
+#checking for a repeated letter
+rep = 0
+
+#variables to check if final sentence has been generated
 sentence_generated = False
 generated_sentence = None
 
 
 
-def get_objects(image):
+def get_objects(image, autoCorrect):
     global k
     global j
     global i
     global c
     global d
+    global rep
     global sentence
     global corrected_sentence
     global word
@@ -351,6 +199,12 @@ def get_objects(image):
 
     global sentence_generated
     global generated_sentence
+
+    #getting whether autocorrect value is true or not
+    if autoCorrect=="true":
+        auto = True
+    else:
+        auto = False
 
     #load the image into a numpy array
     frame = load_image_into_numpy_array(image)
@@ -366,7 +220,7 @@ def get_objects(image):
 
     scores_ = np.squeeze(scores)
     classes_ = np.squeeze(classes)
-
+    '''
     if(max(scores_) >= 0.90):
         c.append(classes_[np.argmax(scores_)])
         i+=1
@@ -405,6 +259,72 @@ def get_objects(image):
                 final_sentence=''
 
             j+=1
+        '''
+
+    if(max(scores_) >= 0.90):
+        c.append(classes_[np.argmax(scores_)])
+        i+=1
+        if i==3:
+            c = np.asarray(c, dtype = 'int64')
+            if c[0]==c[1] and c[1]==c[2]:
+                #d.append(np.bincount(c).argmax())
+                d.append(c[1])
+                i = 0
+                print(d)
+                c=[]
+
+                if j==0:
+                    word += numToWord(d[j])
+
+                if d[j] != d[j-1] and j!=0 and d[j]!=25 and d[j]!=26:
+                    rep = 0
+                    word += numToWord(d[j])
+                    print(word)
+                
+                elif rep<=1 and d[j]!=25 and d[j]!=26:
+                    rep+=1
+                    word+= numToWord(d[j])
+                    print(word)
+                
+                elif d[j]!=25 and d[j]!=26:
+                    rep+=1
+
+                if d[j]==25:
+                    if word == '':
+                        pass
+                    sentence.append(word)
+                    word = ''
+
+                if d[j]==26:
+                    if word != '':
+                        sentence_generated = True
+                        sentence.append(word)
+                        word = ''
+                        
+                        misspelled = spell.unknown(sentence)
+
+                        for w in misspelled:
+                            # Get the one `most likely` answer
+                            corrected_sentence.append(spell.correction(w))
+                        
+                        if auto:
+                            final_sentence = ' '.join(corrected_sentence)
+                        else:
+                            final_sentence = ' '.join(sentence)
+                        
+                        print(final_sentence)
+                        generated_sentence = final_sentence
+                        
+                        sentence = []
+                        corrected_sentence=[]
+                        final_sentence=''
+
+                j+=1
+            
+            else:
+                i=0
+                c=[]
+
 
     classes = np.squeeze(classes).astype(np.int32)
     scores = np.squeeze(scores)

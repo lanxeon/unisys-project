@@ -1,6 +1,6 @@
 //Get camera video
 const constraints = {
-    audio: true,
+    audio: {'echoCancellation': true},
     video: {
         width: {min: 640, ideal: 1280, max: 1280},
         height: {min: 480, ideal: 720, max: 720}

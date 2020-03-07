@@ -73,10 +73,18 @@ function drawBoxes(objects) {
 //Add file blob to a form and post
 function postFile(file) {
 
+    
+    let auto = "false";
+    //get the autocorrect checkbox
+    autoCorrect = document.getElementById('autoCorrect');
+    if(autoCorrect.checked == true)
+        auto = "true";
+
     //Set options as form data
     let formdata = new FormData();
     formdata.append("image", file);
     formdata.append("threshold", scoreThreshold);
+    formdata.append("autoCorrect", auto);
 
     let xhr = new XMLHttpRequest();
     xhr.open('POST', apiServer, true);

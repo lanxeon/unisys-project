@@ -74,10 +74,6 @@ def logout():
 @app.route('/chat')
 @login_required
 def chat():
-	#cam = VideoCamera()
-	#sentence_generated, generated_sentence = cam.get_frame()
-	#if sentence_generated:
-		#print(generated_sentence)
 	return render_template('chat.html')
 
 
@@ -88,51 +84,34 @@ def account():
 
 @app.route('/image', methods=['POST'])
 def image():
-    try:
-        image_file = request.files['image']  # get the image
+	try:
+		#acquire image from XHR
+		image_file = request.files['image']
+		#get ticked value of autoCorrect Checkbox
+		autoCorrect = request.form.get('autoCorrect')
 
-        # Set an image confidence threshold value to limit returned data
-        threshold = request.form.get('threshold')
-        if threshold is None:
-            threshold = 0.5
-        else:
-            threshold = float(threshold)
+		# Set an image confidence threshold value to limit returned data
+		threshold = request.form.get('threshold')
+		if threshold is None:
+			threshold = 0.90
+		else:
+			threshold = float(threshold)
+			
+		# finally run the image through tensor flow object detection`
+		image_object = Image.open(image_file)
+		objects = objDetApi.get_objects(image_object, autoCorrect)
+		return objects
 
-        # finally run the image through tensor flow object detection`
-        image_object = Image.open(image_file)
-        objects = objDetApi.get_objects(image_object)
-        return objects
-
-    except Exception as e:
-        print('POST /image error: '+e)
-        return e
+	except Exception as e:
+		print('POST /image error: '+e)
+		return e
 
 '''
-@app.route('/webrtc', methods = ['GET', 'POST'])
-def webrtc():
-	return render_template('chat.html')
-
-
 @app.route('/webrtc2', methods = ['GET', 'POST'])
 def webrtc2():
 	return render_template('webrtc2.html')
 '''
 
-'''
-def gen(camera):
-	while True:
-		frame, sentence_generated, sentence  = camera.get_frame()
-		if sentence_generated:
-			print('sentence successfully returned'+ sentence)
-		yield (b'--frame\r\n'
-            b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
-'''
-'''
-@app.route('/video_feed')
-def video_feed():
-    return Response(gen(VideoCamera()),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
-'''
 
 
 ########################################################################################################################
@@ -149,14 +128,9 @@ def handle_msg(msg):
 def handle_private_msg(payload):
 	recipient_session_id = users[payload['username']]
 	message = payload['message']
+	sender = payload['sender']
 	emit('new private message', message, room=recipient_session_id)
-	
-'''
-@socketio.on('user joined', namespace = '/private')
-def handle_user_joined(sock_usn):
-	users[sock_usn] = request.sid
-	print(sock_usn+' has logged in to the server')
-'''
+
 
 @socketio.on('connect', namespace = '/private')
 def handle_connect():

@@ -11,19 +11,7 @@
         ga('set', 'transport', 'beacon');
         ga('send', 'pageview');
     </script>
-<!--
-    <style>
-        video {
-        object-fit: cover;
-        }
 
-        @media (min-width: 1000px) {
-        video {
-            height: 480px;
-        }
-    }
-  </style>
--->
 <style>
     video {
         position: absolute;
@@ -59,13 +47,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-<!-- DONT TOUCH THE FCKING SCRIPT. IF YOU WANNA BEAUTIFY THE LAYOUT, JUST TOUCH THE OTHER SHIT(LMAO)-->
+<!-- Socket-IO script -->
     <script type="text/javascript">
     $(document).ready(function() {
 
-        //socketio.emit('user joined', user.usn, namespace = '/private')
         var socket = io();
         var socket_private = io.connect('/private');
+        var localUser;
 
         //regular sockets
         /*
@@ -89,39 +77,41 @@
 
         socket_private.on('user logged in', (usn)=>{
             console.log('user with username '+usn+' has connected on client side');
+            localUser = usn;
         });
 
-        socket_private.on('new private message', function(msg) {
-            $("#messages").append('<li>'+msg+'</li>');
+
+        socket_private.on('new private message', function(msg, sender) {
+            $("#messages").append('<li>'+sender+':'+msg+'</li>');
             console.log('Received message');
         });
 
+        
         $('#sendbutton').on('click', function() {
             var recipient = $('#send_to_username').val();
             var message_to_send = $('#myMessage').val()
-            socket_private.emit('private message', {'username' : recipient, 'message' : message_to_send});
+            socket_private.emit('private message', {'username' : recipient, 'message' : message_to_send, 'sender' : localUser});
             $('#myMessage').val('');
         });
     });
     </script>
-<!-- START MANIPULATING SHIT FROM HERE ON OUT FOR THE LAYOUT. IF YOU ADD ANY ID(FOR ADDING BEHAVIOUR) MENTION THEM AT THE END WITH A COMMENT -->
+
 
 <video id="myVideo" autoplay></video>
+
 <div id = "msgBar">
     <ul id="messages"></ul>
     &emsp;&emsp;&ensp;<font>Send To:</font> <input type="text" id="send_to_username" ><br><br>
     Send Message: <input type="text" id="myMessage" ><br><br>
     <button id="sendbutton">Send</button>
+    <div>
+        <input type = "checkbox" id = "autoCorrect" name="auto" checked>
+        <label for="auto">Enable Sign to Text autocorrect?</label>
+    </div>
 </div><br><br>
 
-<!--<script src="{# {{ url_for('static', filename = 'main.js') }} #}"></script>-->
 <script src="{{ url_for('static', filename = 'local.js')}}"></script>
-<script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="myVideo" data-mirror="false" data-uploadWidth="640" data-scoreThreshold="0.40"></script>
+<script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="myVideo" data-mirror="false" data-uploadWidth="640" data-scoreThreshold="0.90"></script>
 
-<!--
-<div id="vid">
-    <img id="bg" width=640px height=360px src="{# {{ url_for('video_feed') }} #}">
-</div>
--->
 </body>
 </html>
