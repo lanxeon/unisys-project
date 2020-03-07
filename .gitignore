@@ -6,3 +6,5 @@ instance/
 .webassets-cache
 
 .vscode/
+
+audio_files/

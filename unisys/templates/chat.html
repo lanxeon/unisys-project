@@ -57,6 +57,7 @@
         var socket = io();
         var socket_private = io.connect('/private');
         var localUser;
+        ttsServer = window.location.origin+'/tts';
 
         //private sockets
 
@@ -68,6 +69,22 @@
 
         socket_private.on('new private message', function(msg, sender) {
             $("#messages").append('<li>'+sender+':'+msg+'</li>');
+            let formdata = new FormData();
+            formdata.append("recMsg", msg);
+            
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', ttsServer, true);
+            xhr.onload = function() {
+                if(this.status === 200) {
+                    let buttonNumber = JSON.parse(this.response);
+                    console.log(buttonNumber);
+                    $("#messages").append("<button id = 'getAudio' name='audioNo', value = '"+buttonNumber.msgno+"'>Play Audio Again</button>");
+                }
+            else
+                console.error(xhr);
+            }
+            xhr.send(formdata);
+            
             console.log('Received message');
         });
 

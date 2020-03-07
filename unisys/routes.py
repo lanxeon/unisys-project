@@ -7,8 +7,11 @@ import unisys.Object_detection_webcam as objDetApi
 from unisys.forms import Registration, Login
 from unisys.models import User
 from PIL import Image
+from gtts import gTTS
+from pygame import mixer
 
 users = {}
+i = 0
 
 @app.route('/')
 @app.route('/home')
@@ -106,6 +109,26 @@ def image():
 		print('POST /image error: '+e)
 		return e
 
+
+@app.route('/tts', methods = ['POST'])
+def tts():
+	global i
+	#cwd = os.getcwd()
+	message = request.form.get('recMsg')
+	language = 'en'
+	i+=1
+	myobj = gTTS(text=message, lang=language, slow=False)
+	#myobj.save(cwd+"\\audio_files\welcome"+str(i)+".mp3")
+	myobj.save('F:/unisys-project/unisys/audio_files/welcome'+str(i)+'.mp3')
+
+	mixer.init()
+	mixer.music.load('F:/unisys-project/unisys/audio_files/welcome'+str(i)+'.mp3')
+	mixer.music.play()
+
+	return {'msgno':i}
+
+
+
 '''
 @app.route('/webrtc2', methods = ['GET', 'POST'])
 def webrtc2():
@@ -117,12 +140,6 @@ def webrtc2():
 ########################################################################################################################
 #####     SOCKET-IO ROUTES    #####
 ########################################################################################################################
-
-@socketio.on('message')
-def handle_msg(msg):
-	print('Message: ' + msg)
-	send(msg, broadcast=True)
-
 
 @socketio.on('private message', namespace = '/private')
 def handle_private_msg(payload):
