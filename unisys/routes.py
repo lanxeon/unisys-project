@@ -129,7 +129,7 @@ def handle_private_msg(payload):
 	recipient_session_id = users[payload['username']]
 	message = payload['message']
 	sender = payload['sender']
-	emit('new private message', message, room=recipient_session_id)
+	emit('new private message', (message, sender), room=recipient_session_id)
 
 
 @socketio.on('connect', namespace = '/private')

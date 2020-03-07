@@ -37,7 +37,10 @@
         position: absolute;
         left: 72%;
         width: 25%;
-        top: 0;
+        top: 5%;
+        border-radius: 25px;
+        border: 2px solid #1fa1b5;
+        padding: 10px;
     }
 </style>
 
@@ -55,24 +58,6 @@
         var socket_private = io.connect('/private');
         var localUser;
 
-        //regular sockets
-        /*
-        socket.on('connect', function() {
-            socket.send('User has connected!');
-            console.log("NIGggggzzz");
-        });
-        
-        socket.on('message', function(msg) {
-            $("#messages").append('<li>'+msg+'</li>');
-            console.log('Received message');
-        });
-
-        $('#sendbutton').on('click', function() {
-            socket.send($('#myMessage').val());
-            $('#myMessage').val('');
-        });
-        */
-        
         //private sockets
 
         socket_private.on('user logged in', (usn)=>{
@@ -89,7 +74,8 @@
         
         $('#sendbutton').on('click', function() {
             var recipient = $('#send_to_username').val();
-            var message_to_send = $('#myMessage').val()
+            var message_to_send = $('#myMessage').val();
+            $('#messages').append("<li>"+localUser+":"+message_to_send+"</li>");
             socket_private.emit('private message', {'username' : recipient, 'message' : message_to_send, 'sender' : localUser});
             $('#myMessage').val('');
         });
@@ -100,7 +86,9 @@
 <video id="myVideo" autoplay></video>
 
 <div id = "msgBar">
+    <div>
     <ul id="messages"></ul>
+    </div>
     &emsp;&emsp;&ensp;<font>Send To:</font> <input type="text" id="send_to_username" ><br><br>
     Send Message: <input type="text" id="myMessage" ><br><br>
     <button id="sendbutton">Send</button>
