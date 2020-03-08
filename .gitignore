@@ -7,4 +7,4 @@ instance/
 
 .vscode/
 
-audio_files/
+*.mp3

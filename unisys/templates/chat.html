@@ -59,6 +59,12 @@
         var localUser;
         ttsServer = window.location.origin+'/tts';
 
+        //script for autplaying audio element on first load
+        window.audioStart = function(msgno) {
+            let audioElement = document.getElementById('id'+msgno);
+            audioElement.play();
+        }
+
         //private sockets
 
         socket_private.on('user logged in', (usn)=>{
@@ -68,7 +74,7 @@
 
 
         socket_private.on('new private message', function(msg, sender) {
-            $("#messages").append('<li>'+sender+':'+msg+'</li>');
+            $("#messages").append("<p id = 'remote'><b>"+sender+":</b>"+msg+"</p>");
             let formdata = new FormData();
             formdata.append("recMsg", msg);
             
@@ -76,9 +82,13 @@
             xhr.open('POST', ttsServer, true);
             xhr.onload = function() {
                 if(this.status === 200) {
-                    let buttonNumber = JSON.parse(this.response);
-                    console.log(buttonNumber);
-                    $("#messages").append("<button id = 'getAudio' name='audioNo', value = '"+buttonNumber.msgno+"'>Play Audio Again</button>");
+                    let payload = JSON.parse(this.response);
+                    url = payload.url;
+                    msgno = payload.msgno;
+
+                    audio = document.createElement('p');
+                    audio.innerHTML = "<audio id = 'id"+msgno+"' src='"+ url + "' controls onloadstart = 'audioStart("+msgno+")'>";
+                    $("#messages").append(audio);
                 }
             else
                 console.error(xhr);
@@ -92,7 +102,7 @@
         $('#sendbutton').on('click', function() {
             var recipient = $('#send_to_username').val();
             var message_to_send = $('#myMessage').val();
-            $('#messages').append("<li>"+localUser+":"+message_to_send+"</li>");
+            $('#messages').append("<p id = 'local'><b>"+localUser+":</b>"+message_to_send+"</p>");
             socket_private.emit('private message', {'username' : recipient, 'message' : message_to_send, 'sender' : localUser});
             $('#myMessage').val('');
         });

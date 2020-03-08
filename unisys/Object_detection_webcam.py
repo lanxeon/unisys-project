@@ -1,22 +1,3 @@
-######## Webcam Object Detection Using Tensorflow-trained Classifier #########
-#
-# Author: Evan Juras
-# Date: 1/20/18
-# Description: 
-# This program uses a TensorFlow-trained classifier to perform object detection.
-# It loads the classifier and uses it to perform object detection on a webcam feed.
-# It draws boxes, scores, and labels around the objects of interest in each frame
-# from the webcam.
-
-## Some of the code is copied from Google's example at
-## https://github.com/tensorflow/models/blob/master/research/object_detection/object_detection_tutorial.ipynb
-
-## and some is copied from Dat Tran's example at
-## https://github.com/datitran/object_detector_app/blob/master/object_detection_app.py
-
-## but I changed it to make it more understandable to me.
-
-
 # Import packages
 import os
 import cv2
@@ -220,46 +201,6 @@ def get_objects(image, autoCorrect):
 
     scores_ = np.squeeze(scores)
     classes_ = np.squeeze(classes)
-    '''
-    if(max(scores_) >= 0.90):
-        c.append(classes_[np.argmax(scores_)])
-        i+=1
-        if i==3:
-            c = np.asarray(c, dtype = 'int64')
-            d.append(np.bincount(c).argmax())
-            i = 0
-            print(d)
-            c=[]
-
-            if d[j] != d[j-1] and j!=0:
-                word+=numToWord(d[j-1])
-                print(word)
-
-            if d[j]==25:
-                sentence.append(word)
-                word = ''
-
-            if d[j]==26:
-                sentence_generated = True
-                sentence.append(word)
-                word = ''
-                
-                misspelled = spell.unknown(sentence)
-
-                for w in misspelled:
-                    # Get the one `most likely` answer
-                    corrected_sentence.append(spell.correction(w))
-                
-                final_sentence = ' '.join(corrected_sentence)
-                print(final_sentence)
-                generated_sentence = final_sentence
-                
-                sentence = []
-                corrected_sentence=[]
-                final_sentence=''
-
-            j+=1
-        '''
 
     if(max(scores_) >= 0.90):
         c.append(classes_[np.argmax(scores_)])
@@ -332,6 +273,7 @@ def get_objects(image, autoCorrect):
 
 
     output = []
+    
     '''
     # Add some metadata to the output
     item = Object()

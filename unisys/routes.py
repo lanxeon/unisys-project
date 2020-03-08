@@ -113,19 +113,15 @@ def image():
 @app.route('/tts', methods = ['POST'])
 def tts():
 	global i
-	#cwd = os.getcwd()
 	message = request.form.get('recMsg')
 	language = 'en'
 	i+=1
 	myobj = gTTS(text=message, lang=language, slow=False)
-	#myobj.save(cwd+"\\audio_files\welcome"+str(i)+".mp3")
-	myobj.save('F:/unisys-project/unisys/audio_files/welcome'+str(i)+'.mp3')
+	directory = './unisys/static/audio_files/welcome'+str(i)+'.mp3'
+	myobj.save(directory)
 
-	mixer.init()
-	mixer.music.load('F:/unisys-project/unisys/audio_files/welcome'+str(i)+'.mp3')
-	mixer.music.play()
 
-	return {'msgno':i}
+	return {'msgno':i, 'url':url_for('static', filename = 'audio_files/welcome'+str(i)+'.mp3')}
 
 
 
@@ -134,7 +130,6 @@ def tts():
 def webrtc2():
 	return render_template('webrtc2.html')
 '''
-
 
 
 ########################################################################################################################
