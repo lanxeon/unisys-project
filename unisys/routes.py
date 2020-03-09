@@ -120,9 +120,12 @@ def tts():
 	directory = './unisys/static/audio_files/welcome'+str(i)+'.mp3'
 	myobj.save(directory)
 
-
 	return {'msgno':i, 'url':url_for('static', filename = 'audio_files/welcome'+str(i)+'.mp3')}
 
+
+@app.route('/signs', methods = ['GET', 'POST'])
+def signs():
+	return render_template('signs.html')
 
 
 '''

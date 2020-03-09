@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>signs</title>
+    <style>
+        body{
+            background-color: darkcyan;
+        }
+
+        video {
+            position: absolute;
+            height:480px;
+            width: 852px;
+            top: 0px;
+            left: 0px;
+        }
+        
+        img {
+            position: absolute;
+            top: 0;
+            left: 860px;
+        }
+    </style>
+</head>
+<body>
+<img src = "{{ url_for('static', filename = 'files/signs.png') }}"> 
+<video src = "{{ url_for('static', filename = 'files/ASL.mp4') }}" autoplay isinline controls> 
+</body>
+</html>

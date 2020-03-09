@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Raleway' type="text/css" rel='stylesheet'>
+    <script>
+        //  philipwalton.com/articles/the-google-analytics-setup-i-use-on-every-site-i-build
+        window.ga = window.ga || function() {
+          (ga.q = ga.q || []).push(arguments);
+        };
+        ga('create', 'UA-33848682-1', 'auto');
+        ga('set', 'transport', 'beacon');
+        ga('send', 'pageview');
+    </script>
+
+<style>
+    .my_class_name {
+    margin: 0 auto;
+    border: 10px double #ddd;
+    }
+    
+    html{
+
+         height: 100%;
+         background-size: cover;
+         background: url("https://srv4.imgonline.com.ua/result_img/imgonline-com-ua-Resize-L0tBlPdXiUEl.jpg") no-repeat center center fixed;
+    }
+
+    div, button{
+        font-family:'Raleway';
+        font-size: 15px;
+    }
+    video {
+        position: absolute;
+        border: 4px solid black;
+        width: 55%;
+        top:6%;
+        left:2%;
+        height: 63%;
+        z-index: -1;
+         /*Mirror the local video */
+        transform: scale(-1, 1);            /*For Firefox (& IE) */
+        -webkit-transform: scale(-1, 1);     /*for Chrome & Opera (& Safari) */
+    }
+    canvas{
+        position: absolute;
+        top: 6%;
+        left: 2%;
+        width: 55%;
+        height: 63%;
+        z-index:1
+    }
+
+    #msgBar {
+        position: absolute;
+        left: 60%;
+        width: 36%;
+        background-color: lightgrey;
+        top: 5%;
+        border-radius: 25px;
+        border: 2px solid #1fa1b5;
+        padding: 10px;
+    }
+
+    #chatBar {
+        position: absolute;
+        left: 60%;
+        width: 700px;
+        height: 500px;  
+        padding: 10px;
+        top: 35%;
+        border-radius: 25px;
+        background-color: lightgrey;
+        border: 2px solid #1fa1b5;
+        overflow: auto;
+    }
+
+     .btn {
+  border: none;
+  color: white;
+  padding: 10px 24px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 47%;
+}
+.info {background-color: #2196F3; } /* Blue */
+.info:hover {background: #0b7dda;}
+
+ .success {background-color: #4CAF50; } /* Green */
+.success:hover {background-color: #46a049;}
+
+
+textarea {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #1fa1b5;
+}
+/*.vid-border{
+  position: absolute;
+  text-align: center;
+  
+}*/
+
+</style>
+
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<title>Chat Room</title>
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<!-- Socket-IO script -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var socket = io();
+        var socket_private = io.connect('/private');
+        var localUser;
+        ttsServer = window.location.origin+'/tts';
+
+        //script for autplaying audio element on first load
+        window.audioStart = function(msgno) {
+            let audioElement = document.getElementById('id'+msgno);
+            audioElement.play();
+        }
+
+        //private sockets
+
+        socket_private.on('user logged in', (usn)=>{
+            console.log('user with username '+usn+' has connected on client side');
+            localUser = usn;
+        });
+
+
+        socket_private.on('new private message', function(msg, sender) {
+            $("#messages").append("<span id = 'remote' style='display: inline-block; width: 170px; position:relative; left:-32%; top:102%;' ><b>"+sender+" :</b> " +msg+"</span>");
+            let formdata = new FormData();
+            formdata.append("recMsg", msg);
+            
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', ttsServer, true);
+            xhr.onload = function() {
+                if(this.status === 200) {
+                    let payload = JSON.parse(this.response);
+                    url = payload.url;
+                    msgno = payload.msgno;
+
+                    audio = document.createElement('p');
+                    audio.innerHTML = "<audio id = 'id"+msgno+"' src='"+ url + "' controls onloadstart = 'audioStart("+msgno+")' style='position:relative; width:25%; height: 20px; top:112%; left:-5%'>";
+                    $("#messages").append(audio);
+                }
+            else
+                console.error(xhr);
+            }
+            xhr.send(formdata);
+            
+            console.log('Received message');
+        });
+
+        
+        $('#sendbutton').on('click', function() {
+            var recipient = $('#send_to_username').val();
+            var message_to_send = $('#myMessage').val();
+            $('#messages').append("<span id = 'local' style='display: inline-block; width: 170px; position:relative; left:48%; white-space: initial;'><b>"+localUser+" :</b> "+message_to_send+"</span>");
+            socket_private.emit('private message', {'username' : recipient, 'message' : message_to_send, 'sender' : localUser});
+            $('#myMessage').val('');
+        });
+    });
+    </script>
+
+<video id="myVideo" autoplay></video>
+
+
+<div id = "msgBar">
+    
+    <font color="black" size = "4.5">Send To: <input type="text" id="send_to_username" style="font-size: 18px; border-radius: 5px; border: 1px solid #1fa1b5"></font><br><br>
+    <font color="black" size="4.5">Send Message:<br><textarea rows="4" cols="50" style="resize: none; font-family:'Raleway'; font-size: 18px;" id="myMessage" placeholder="Type or gesture a message" ></textarea><br>
+    <!--&emsp;&emsp;&ensp;&ensp;&ensp;&emsp;&emsp;&emsp;-->
+    <div>
+    <font color="black"><button id="sendbutton" class="btn info" style="position: relative; left: 27%; ">Send</button></font>
+    </div>
+    <div>
+        <input type = "checkbox" id = "autoCorrect" name="auto" checked>
+        <label for="auto">Enable Sign to Text autocorrect?</label>
+    </div>
+</div><br><br>
+    <font color="white" style="position: absolute; left: 80%; top:35%; font-family: 'Raleway';"> Messages:</font>
+    <div id="chatBar">
+    <ul id="messages"></ul>
+    </div>
+    <a  href ="{{ url_for('signs') }}" target="_blank">
+        <font color="black"><button class="btn success" style="position:absolute; left:40%; top:72%;">Need help with gestures?</button></font>
+    </a>
+
+<script src="{{ url_for('static', filename = 'local.js')}}"></script>
+<script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="myVideo" data-mirror="false" data-uploadWidth="640" data-scoreThreshold="0.90"></script>
+
+</body>
+</html>
