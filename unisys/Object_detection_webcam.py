@@ -142,6 +142,7 @@ def numToWord(x):
     elif x == 25:
         return ''
     elif x == 26:
+        print('(full-stop)')
         return '.'
     else:
         return '_'
@@ -205,9 +206,9 @@ def get_objects(image, autoCorrect):
     if(max(scores_) >= 0.90):
         c.append(classes_[np.argmax(scores_)])
         i+=1
-        if i==3:
+        if i==2:
             c = np.asarray(c, dtype = 'int64')
-            if c[0]==c[1] and c[1]==c[2]:
+            if c[0]==c[1]:
                 #d.append(np.bincount(c).argmax())
                 d.append(c[1])
                 i = 0
@@ -216,6 +217,7 @@ def get_objects(image, autoCorrect):
 
                 if j==0:
                     word += numToWord(d[j])
+                    print(word)
 
                 if d[j] != d[j-1] and j!=0 and d[j]!=25 and d[j]!=26:
                     rep = 0
@@ -234,10 +236,12 @@ def get_objects(image, autoCorrect):
                     if word == '':
                         pass
                     sentence.append(word)
+                    print(word)
                     word = ''
 
                 if d[j]==26:
-                    if word != '':
+                    if word != '' or d[j-1]!=25:
+                        print('word is:'+ word)
                         sentence_generated = True
                         sentence.append(word)
                         word = ''

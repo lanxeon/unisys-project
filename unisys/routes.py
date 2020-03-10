@@ -62,7 +62,7 @@ def login():
 		if user and bcrypt.check_password_hash(user.pwd , form.pwd.data):
 			login_user(user, remember=form.remember.data)
 			#socketio.send('connect', user.usn, namespace = '/private')
-			flash(f'Registered successfully', 'success')
+			#flash(f'Registered successfully', 'success')
 			next_page = request.args.get('next')
 			return redirect(next_page) if next_page else redirect(url_for('home'))
 
