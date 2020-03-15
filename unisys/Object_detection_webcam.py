@@ -148,7 +148,6 @@ def numToWord(x):
         return '_'
 
 #initialization variables
-k = 1
 j = 0
 i = 0
 c = []
@@ -168,7 +167,6 @@ generated_sentence = None
 
 
 def get_objects(image, autoCorrect):
-    global k
     global j
     global i
     global c
@@ -240,7 +238,7 @@ def get_objects(image, autoCorrect):
                     word = ''
 
                 if d[j]==26:
-                    if word != '' or d[j-1]!=25:
+                    if word != '':
                         print('word is:'+ word)
                         sentence_generated = True
                         sentence.append(word)
