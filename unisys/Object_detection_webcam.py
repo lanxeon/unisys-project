@@ -21,7 +21,7 @@ from unisys.utils import label_map_util
 from unisys.utils import visualization_utils as vis_util
 
 # Name of the directory containing the object detection module we're using
-MODEL_NAME = 'inference_graph'
+MODEL_NAME = 'inference_graph(ssd)'
 
 # Grab path to current working directory
 CWD_PATH = os.getcwd()

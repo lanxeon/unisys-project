@@ -11,6 +11,7 @@
         ga('set', 'transport', 'beacon');
         ga('send', 'pageview');
     </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 <style>
     .my_class_name {
@@ -36,9 +37,9 @@
     video {
         position: absolute;
         /*border: 4px solid black;*/
-        width: 51%;
         top:6%;
         left:3%;
+        width: 51%;
         height: 61%;
         z-index: -1;
          /*Mirror the local video */
@@ -48,7 +49,7 @@
     canvas{
         position: absolute;
         top: 6%;
-        left: 2%;
+        left: 3%;
         width: 51%;
         height: 61%;
         z-index:1;
@@ -59,7 +60,7 @@
         left: 57%;
         width: 39%;
         background-color: #262626;
-        top: 65%;
+        top: 68%;
         border-radius: 25px;
         /*border: 2px solid #1fa1b5;*/
         padding: 10px;
@@ -69,7 +70,7 @@
         position: absolute;
         left: 57%;
         width: 39%;
-        height: 55%;  
+        height: 58%;  
         padding: 10px;
         top: 6%;
         border-radius: 25px;
@@ -103,8 +104,8 @@
      .btn {
         border: none;
         color: white;
-        padding: 10px 24px;
-        font-size: 14px;
+        padding: 10px;
+        font-size: 18px;
         cursor: pointer;
         border-radius: 47%;
     }
@@ -116,6 +117,7 @@
 
 
 textarea {
+    position: relative;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -123,6 +125,8 @@ textarea {
     background-color: #4d4d4d;
     color: white;
     opacity: 87%;
+    width: 80%;
+
 }
 
 button:focus{
@@ -165,7 +169,7 @@ button:focus{
 
 
         socket_private.on('new private message', function(msg, sender) {
-            $("#messages").append("<span id = 'remote' style='display: inline-block; width: 230px; position:relative;left:-6%;' ><b>"+sender+" :</b> " +msg+"</span><br>");
+            $("#messages").append("<span id = 'remote' style='display: inline-block; width: 230px; position:relative; margin-top: 3px; left:-6%;' ><b>"+sender+" :</b> " +msg+"</span><br>");
             let formdata = new FormData();
             formdata.append("recMsg", msg);
             
@@ -194,7 +198,7 @@ button:focus{
         $('#sendbutton').on('click', function() {
             var recipient = $('#send_to_username').val();
             var message_to_send = $('#myMessage').val();
-            $('#messages').append("<span id = 'local' style='display: inline-block; width: 230px; position:relative; left:53%; white-space: initial;'><b>"+localUser+" :</b> "+message_to_send+"</span><br>");
+            $('#messages').append("<span id = 'local' style='display: inline-block; width: 230px; position:relative; left:53%; margin-top: 3px; white-space: initial;'><b>"+localUser+" :</b> "+message_to_send+"</span><br>");
             socket_private.emit('private message', {'username' : recipient, 'message' : message_to_send, 'sender' : localUser});
             $('#myMessage').val('');
         });
@@ -204,28 +208,30 @@ button:focus{
 <video id="myVideo" autoplay></video>
 
 
-<div id = "msgBar">
-    
-    <font color="white" size = "4.5">Send To: <input type="text" id="send_to_username"></font><br><br>
-    <font color="white" size="4.5">Send Message:<br><textarea rows="4" cols="50" style="resize: none; font-family:'Raleway'; font-size: 18px;" id="myMessage" placeholder="Type or gesture a message" ></textarea><br>
-    <div>
-    <font color="black"><button id="sendbutton" class="btn info" style="position: relative; left: 27%; ">Send</button></font>
-    </div>
+    <div id = "msgBar">
+        <font color="white" size = "4.5">Send To: <input type="text" id="send_to_username"></font><br><br>
+        <font color="white" size="4.5">Send Message:<br><textarea rows="4" cols="50" style="resize: none; font-family:'Raleway'; font-size: 18px;" id="myMessage" placeholder="Type or gesture a message" ></textarea>
+        <button id="sendbutton" class="btn info" style="position: absolute; left: 82%; top: 47%; width: 15%"><i class="material-icons">send</i></button>
+        <!--
+        <div>
+            <button id="sendbutton" class="btn info" style="position: relative; left: 34%; "><i class="material-icons">send</i></button>
+        </div>
+        -->
     <div>
         <input type = "checkbox" id = "autoCorrect" name="auto">
-        <label for="auto">Enable Sign to Text autocorrect?</label>
+        <label for="auto"><font color = 'white' opacity = 10%>Enable Sign to Text autocorrect?</font></label>
     </div>
-</div>
-    <!--<font color="white" style="position: absolute; left: 80%; top:35%; font-family: 'Raleway';"> Messages:</font>-->
-    <div id="chatBar">
-    <ul id="messages"></ul>
+    </div>
+        <!--<font color="white" style="position: absolute; left: 80%; top:35%; font-family: 'Raleway';"> Messages:</font>-->
+        <div id="chatBar">
+        <ul id="messages"></ul>
     </div>
     <a  href ="{{ url_for('signs') }}" target="_blank">
         <font color="black"><button class="btn success" style="position:absolute; left:23%; top:75%;">Need help with gestures?</button></font>
     </a>
 
 <script src="{{ url_for('static', filename = 'local.js')}}"></script>
-<script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="myVideo" data-mirror="false" data-uploadWidth="640" data-scoreThreshold="0.90"></script>
+<script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="myVideo" data-mirror="false" data-uploadWidth="256" data-scoreThreshold="0.90"></script>
 
 </body>
 </html>

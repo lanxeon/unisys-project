@@ -7,7 +7,7 @@
 //Parameters
 const s = document.getElementById('objDetect');
 const sourceVideo = s.getAttribute("data-source");  //the source video to use
-const uploadWidth = s.getAttribute("data-uploadWidth") || 640; //the width of the upload file
+const uploadWidth = s.getAttribute("data-uploadWidth"); //the width of the upload file
 const mirror = s.getAttribute("data-mirror") || false; //mirror the boundary boxes
 const scoreThreshold = s.getAttribute("data-scoreThreshold") || 0.5;
 const apiServer = s.getAttribute("data-apiServer") || window.location.origin + '/image'; //the full TensorFlow Object Detection API server url
@@ -43,19 +43,25 @@ function drawBoxes(objects) {
     //filter out objects that contain a class_name and then draw boxes and labels on each
     objects.filter(object => object.class_name).forEach(object => {
 
+        
         let x = object.x * drawCanvas.width;
-        //console.log(x);
         let y = object.y * drawCanvas.height;
         let width = (object.width * drawCanvas.width) - x;
         let height = (object.height * drawCanvas.height) - y;
         console.log(object.sentence_generated+object.generated_sentence);
+        
+/*
+       let x = object.x * videoWidth.width;
+       let y = object.y * videoHeight.height;
+       let width = (object.width * videoWidth.width) - x;
+       let height = (object.height * videoHeight.height) - y;
+       console.log(object.sentence_generated+object.generated_sentence);
+*/
 
 
         if(object.sentence_generated == "true")
         {
             console.log('entered condition')
-            //var message_to_send = object.generated_sentence;
-            //socket_private.emit('private message', {'username' : recipient, 'message' : message_to_send});
             $('#myMessage').val(object.generated_sentence);
         }
 
