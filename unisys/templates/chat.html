@@ -11,205 +11,242 @@
         ga('set', 'transport', 'beacon');
         ga('send', 'pageview');
     </script>
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-<style>
-    .my_class_name {
-    margin: 0 auto;
-    border: 10px double #ddd;
-    }
+    <style>
+        .my_class_name {
+        margin: 0 auto;
+        border: 10px double #ddd;
+        }
 
-    body{
-        background-color: /*#1b262c*/#121212;
-    }
-    
-    html{
+        body{
+            background-color: /*#1b262c*/#121212;
+        }
+        
+        html{
 
-         height: 100%;
-         background-size: cover;
-         /*background: url("https://srv4.imgonline.com.ua/result_img/imgonline-com-ua-Resize-L0tBlPdXiUEl.jpg") no-repeat center center fixed;
-    */}
+            height: 100%;
+            background-size: cover;
+            /*background: url("https://srv4.imgonline.com.ua/result_img/imgonline-com-ua-Resize-L0tBlPdXiUEl.jpg") no-repeat center center fixed;
+        */}
 
-    div, button{
-        font-family:'Raleway';
-        font-size: 15px;
-    }
-    video {
-        position: absolute;
-        /*border: 4px solid black;*/
-        top:6%;
-        left:3%;
-        width: 51%;
-        height: 61%;
-        z-index: -1;
-         /*Mirror the local video */
-        transform: scale(-1, 1);            /*For Firefox (& IE) */
-        -webkit-transform: scale(-1, 1);     /*for Chrome & Opera (& Safari) */
-    }
-    canvas{
-        position: absolute;
-        top: 6%;
-        left: 3%;
-        width: 51%;
-        height: 61%;
-        z-index:1;
-    }
+        div, button{
+            font-family:'Raleway';
+            font-size: 15px;
+        }
+        video {
+            position: absolute;
+            /*border: 4px solid black;*/
+            top:6%;
+            left:3%;
+            width: 51%;
+            height: 61%;
+            z-index: -1;
+            /*Mirror the local video */
+            transform: scale(-1, 1);            /*For Firefox (& IE) */
+            -webkit-transform: scale(-1, 1);     /*for Chrome & Opera (& Safari) */
+        }
+        canvas{
+            position: absolute;
+            top: 6%;
+            left: 3%;
+            width: 51%;
+            height: 61%;
+            z-index:1;
+        }
 
-    #msgBar {
-        position: absolute;
-        left: 57%;
-        width: 39%;
-        background-color: #262626;
-        top: 68%;
-        border-radius: 25px;
-        /*border: 2px solid #1fa1b5;*/
-        padding: 10px;
-    }
+        #msgBar {
+            position: absolute;
+            left: 57%;
+            width: 39%;
+            background-color: #262626;
+            top: 68%;
+            border-radius: 25px;
+            /*border: 2px solid #1fa1b5;*/
+            padding: 10px;
+        }
 
-    #chatBar {
-        position: absolute;
-        left: 57%;
-        width: 39%;
-        height: 58%;  
-        padding: 10px;
-        top: 6%;
-        border-radius: 25px;
-        background-color: #262626;
-        /*border: 2px solid #1fa1b5;*/
-        overflow: auto;
-    }
+        #chatBar {
+            position: absolute;
+            left: 57%;
+            width: 39%;
+            height: 58%;  
+            padding: 10px;
+            top: 6%;
+            border-radius: 25px;
+            background-color: #262626;
+            /*border: 2px solid #1fa1b5;*/
+            overflow: auto;
+        }
 
-    #send_to_username{
-        font-size: 18px; 
-        border-radius: 5px; 
-        border: 1px solid #4d4d4d;
-        background-color: #4d4d4d;
-        color: white;
-        opacity: 87%;
-    }
+        input {
+            font-size: 18px; 
+            border-radius: 5px; 
+            border: 1px solid #4d4d4d;
+            background-color: #4d4d4d;
+            color: white;
+            opacity: 87%;
+        }
 
-
-    span {
-        background-color: #4d4d4d;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-left: 10px;
-        padding-right: 10px;
-        border-radius: 10px;
-        color: white;
-        opacity: 87%;
-        /*box-shadow: 0 0 5px 2px #4d4d4d;*/
-    }
-
-     .btn {
-        border: none;
-        color: white;
-        padding: 10px;
-        font-size: 18px;
-        cursor: pointer;
-        border-radius: 47%;
-    }
-.info {background-color: #2196F3; } /* Blue */
-.info:hover {background: #0b7dda;}
-
- .success {background-color: #4CAF50; } /* Green */
-.success:hover {background-color: #46a049;}
+        label {
+            font-size: 18px;
+            color: white;
+            opacity: 87%;
+        }
 
 
-textarea {
-    position: relative;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    border: 1px solid #4d4d4d;
-    background-color: #4d4d4d;
-    color: white;
-    opacity: 87%;
-    width: 80%;
+        span {
+            background-color: #4d4d4d;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 10px;
+            color: white;
+            opacity: 87%;
+            /*box-shadow: 0 0 5px 2px #4d4d4d;*/
+        }
 
-}
+        .localText{
+            display: inline-block; 
+            width: 230px; 
+            position:relative; 
+            left:53%; 
+            margin-top: 3px; 
+            white-space: initial;
+        }
 
-button:focus{
-    outline: none;
-}
-/*.vid-border{
-  position: absolute;
-  text-align: center;
-  
-}*/
+        .remoteText{
+            display: inline-block; 
+            width: 230px; 
+            position:relative; 
+            margin-top: 3px; 
+            left:-6%;
+        }
 
-</style>
+        .btn {
+            border: none;
+            color: white;
+            opacity: 87%;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 47%;
+        }
 
-<script async src="https://www.google-analytics.com/analytics.js"></script>
-<title>Chat Room</title>
-<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        .info {background-color: #2196F3; } /* Blue */
+        .info:hover {background: #0b7dda;}
+
+        .success {background-color: #4CAF50; } /* Green */
+        .success:hover {background-color: #46a049;}
+
+
+        textarea {
+            position: relative;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            border: 1px solid #4d4d4d;
+            background-color: #4d4d4d;
+            color: white;
+            opacity: 87%;
+            width: 80%;
+
+        }
+
+        button:focus{
+            outline: none;
+        }
+
+    </style>
+
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <title>Chat Room</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </head>
+
 <body>
 <!-- Socket-IO script -->
     <script type="text/javascript">
-    $(document).ready(function() {
-        var socket = io();
-        var socket_private = io.connect('/private');
-        var localUser;
-        ttsServer = window.location.origin+'/tts';
+        $(document).ready(function() {
+            var socket = io();
+            var socket_private = io.connect('/private');
+            var localUser;
+            var RemoteUser;
+            ttsServer = window.location.origin+'/tts';
 
-        //script for autplaying audio element on first load
-        window.audioStart = function(msgno) {
-            let audioElement = document.getElementById('id'+msgno);
-            audioElement.play();
-        }
-
-        //private sockets
-
-        socket_private.on('user logged in', (usn)=>{
-            console.log('user with username '+usn+' has connected on client side');
-            localUser = usn;
-        });
-
-
-        socket_private.on('new private message', function(msg, sender) {
-            $("#messages").append("<span id = 'remote' style='display: inline-block; width: 230px; position:relative; margin-top: 3px; left:-6%;' ><b>"+sender+" :</b> " +msg+"</span><br>");
-            let formdata = new FormData();
-            formdata.append("recMsg", msg);
-            
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', ttsServer, true);
-            xhr.onload = function() {
-                if(this.status === 200) {
-                    let payload = JSON.parse(this.response);
-                    url = payload.url;
-                    msgno = payload.msgno;
-
-                    audio = document.createElement('p');
-                    audio.innerHTML = "<audio id = 'id"+msgno+"' src='"+ url + "' controls onloadstart = 'audioStart("+msgno+")' style='position:relative; width:40%; height: 20px; top:112%; left:-5%'>";
-                    $("#messages").append(audio);
-                    $("#messages").append('<br>');
-                }
-            else
-                console.error(xhr);
+            //script for autplaying audio element on first load
+            window.audioStart = function(msgno) {
+                let audioElement = document.getElementById('id'+msgno);
+                audioElement.play();
             }
-            xhr.send(formdata);
-            
-            console.log('Received message');
-        });
 
-        
-        $('#sendbutton').on('click', function() {
-            var recipient = $('#send_to_username').val();
-            var message_to_send = $('#myMessage').val();
-            $('#messages').append("<span id = 'local' style='display: inline-block; width: 230px; position:relative; left:53%; margin-top: 3px; white-space: initial;'><b>"+localUser+" :</b> "+message_to_send+"</span><br>");
-            socket_private.emit('private message', {'username' : recipient, 'message' : message_to_send, 'sender' : localUser});
-            $('#myMessage').val('');
+            //for finding the remoteUser once form is submitted
+            RemoteUser = $("#topRecv").text();
+            console.log("the remote user is: "+RemoteUser);
+
+            //private sockets
+
+            socket_private.on('user logged in', (usn)=>{
+                console.log('user with username '+usn+' has connected on client side');
+                localUser = usn;
+            });
+
+
+            socket_private.on('new private message', function(msg, sender) {
+                $("#messages").append("<span class = 'remoteText'><b>"+sender+" :</b> " +msg+"</span><br>");
+                let formdata = new FormData();
+                formdata.append("recMsg", msg);
+                
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', ttsServer, true);
+                xhr.onload = function() {
+                    if(this.status === 200) {
+                        let payload = JSON.parse(this.response);
+                        url = payload.url;
+                        msgno = payload.msgno;
+
+                        audio = document.createElement('p');
+                        audio.innerHTML = "<audio id = 'id"+msgno+"' src='"+ url + "' controls onloadstart = 'audioStart("+msgno+")' style='position:relative; width:40%; height: 20px; top:112%; left:-5%'>";
+                        $("#messages").append(audio);
+                        $("#messages").append('<br>');
+                    }
+                else
+                    console.error(xhr);
+                }
+                xhr.send(formdata);
+                
+                console.log('Received message');
+            });
+
+            
+            $('#sendbutton').on('click', function() {
+                //var recipient = $('#send_to_username').val();
+                var recipient = RemoteUser;
+                var message_to_send = $('#myMessage').val();
+                $('#messages').append("<span class = 'localText'><b>"+localUser+" :</b> "+message_to_send+"</span><br>");
+                socket_private.emit('private message', {'username' : recipient, 'message' : message_to_send, 'sender' : localUser});
+                $('#myMessage').val('');
+            });
         });
-    });
     </script>
 
-<video id="myVideo" autoplay></video>
+{% if user_connected==False %}
+    <form action = "" method="POST">
+        {{ form.hidden_tag() }}
+        {{form.receiver.label}} {{form.receiver}} &nbsp; {{ form.submitRecv }}
+    </form>
+{% endif %}
+
+{% if user_connected %}
+    <video id="myVideo" autoplay></video>
 
 
     <div id = "msgBar">
-        <font color="white" size = "4.5">Send To: <input type="text" id="send_to_username"></font><br><br>
+        <!--<font color="white" size = "4.5">Send To: <input type="text" id="send_to_username"></font><br><br>-->
         <font color="white" size="4.5">Send Message:<br><textarea rows="4" cols="50" style="resize: none; font-family:'Raleway'; font-size: 18px;" id="myMessage" placeholder="Type or gesture a message" ></textarea>
         <button id="sendbutton" class="btn info" style="position: absolute; left: 82%; top: 47%; width: 15%"><i class="material-icons">send</i></button>
         <!--
@@ -217,21 +254,24 @@ button:focus{
             <button id="sendbutton" class="btn info" style="position: relative; left: 34%; "><i class="material-icons">send</i></button>
         </div>
         -->
-    <div>
-        <input type = "checkbox" id = "autoCorrect" name="auto">
-        <label for="auto"><font color = 'white' opacity = 10%>Enable Sign to Text autocorrect?</font></label>
+        <div>
+            <input type = "checkbox" id = "autoCorrect" name="auto">
+            <label for="auto"><font color = 'white' size = "2">Enable Sign to Text autocorrect?</font></label>
+        </div>
     </div>
-    </div>
-        <!--<font color="white" style="position: absolute; left: 80%; top:35%; font-family: 'Raleway';"> Messages:</font>-->
-        <div id="chatBar">
-        <ul id="messages"></ul>
+
+    <div id="chatBar">
+        <ul id="messages">
+            <p id = "topRecv" style = "position: absolute; left: 0; top: 5%; width: 100%; text-align: center;">{{ receiver }}</p><br><br><br>
+        </ul>
     </div>
     <a  href ="{{ url_for('signs') }}" target="_blank">
         <font color="black"><button class="btn success" style="position:absolute; left:23%; top:75%;">Need help with gestures?</button></font>
     </a>
 
-<script src="{{ url_for('static', filename = 'local.js')}}"></script>
-<script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="myVideo" data-mirror="false" data-uploadWidth="256" data-scoreThreshold="0.90"></script>
 
+    <script src="{{ url_for('static', filename = 'local.js')}}"></script>
+    <script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="myVideo" data-mirror="false" data-uploadWidth="256" data-scoreThreshold="0.90"></script>
+{% endif %}
 </body>
 </html>

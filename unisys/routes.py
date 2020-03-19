@@ -4,13 +4,14 @@ from flask_login import login_user, current_user, logout_user, login_required
 from flask_socketio import send, emit
 import os
 import unisys.Object_detection_webcam as objDetApi
-from unisys.forms import Registration, Login
+from unisys.forms import Registration, Login, Chat
 from unisys.models import User
 from PIL import Image
 from gtts import gTTS
 from pygame import mixer
 
 users = {}
+rooms = []
 i = 0
 
 @app.route('/')
@@ -61,12 +62,12 @@ def login():
 		user = User.query.filter_by(email = form.email.data).first()
 		if user and bcrypt.check_password_hash(user.pwd , form.pwd.data):
 			login_user(user, remember=form.remember.data)
-			#socketio.send('connect', user.usn, namespace = '/private')
-			#flash(f'Registered successfully', 'success')
+			flash(f'Registered successfully', 'success')
 			next_page = request.args.get('next')
 			return redirect(next_page) if next_page else redirect(url_for('home'))
 
 	return render_template('login.html', form = form,user_image = full_filename11)
+
 
 @app.route('/logout')
 def logout():
@@ -74,16 +75,22 @@ def logout():
 	return redirect(url_for('home'))
 
 
-@app.route('/chat')
+@app.route('/chat', methods = ['GET', 'POST'])
 @login_required
 def chat():
-	return render_template('chat.html')
+	form = Chat()
+	user_connected = False
+	if form.validate_on_submit():
+		user_connected = True
+		return render_template('chat.html', receiver = form.receiver.data, user_connected = user_connected)
+	return render_template('chat.html', form = form, user_connected = user_connected)
 
 
 @app.route('/account')
 @login_required
 def account():
 	return render_template('account.html')
+
 
 @app.route('/image', methods=['POST'])
 def image():
@@ -154,3 +161,8 @@ def handle_connect():
 		emit('user logged in', username, namespace = '/private')
 		users[username] = request.sid
 		print(username+' has logged in to the server with session id '+users[username])
+
+
+@socketio.on('connect')
+def handle_connect_default_namespace():
+	print('default namespace is activated')
