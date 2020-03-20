@@ -1,7 +1,7 @@
 from flask import render_template, url_for, request, redirect, flash, request, session, Response
 from unisys import app, lm, bcrypt, db, socketio
 from flask_login import login_user, current_user, logout_user, login_required
-from flask_socketio import send, emit
+from flask_socketio import send, emit, join_room, leave_room
 import os
 import unisys.Object_detection_webcam as objDetApi
 from unisys.forms import Registration, Login, Chat
@@ -142,9 +142,9 @@ def webrtc2():
 '''
 
 
-########################################################################################################################
-#####     SOCKET-IO ROUTES    #####
-########################################################################################################################
+############################################################################################################################################
+#################    SOCKET-IO ROUTES    ###################################################################################################
+############################################################################################################################################
 
 @socketio.on('private message', namespace = '/private')
 def handle_private_msg(payload):
@@ -161,6 +161,25 @@ def handle_connect():
 		emit('user logged in', username, namespace = '/private')
 		users[username] = request.sid
 		print(username+' has logged in to the server with session id '+users[username])
+
+
+@socketio.on('create or join room', namespace = '/private')
+def handle_join_or_create_room(payload):
+	local = payload['localUser']
+	remote = payload['remoteUser']
+	found = 0
+	for room in rooms:
+		if local in room and remote in room:
+			found = 1
+			join_room(room)
+			print(local+' has joined the room '+room+' with '+remote)
+			break
+
+	if found == 0:
+		room = local+'&&&'+remote
+		rooms.append(room)
+		join_room(room)
+		print(local+' has joined the room '+room+' with '+remote)
 
 
 @socketio.on('connect')
