@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <link href='https://fonts.googleapis.com/css?family=Raleway' type="text/css" rel='stylesheet'>
     <script>
         //  philipwalton.com/articles/the-google-analytics-setup-i-use-on-every-site-i-build
@@ -13,7 +14,7 @@
     </script>
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href = "{{ url_for('static', filename = 'stylesheets/chat.css') }}"
+    <link rel="stylesheet" href = "{{ url_for('static', filename = 'stylesheets/chat.css') }}">
 
     <script async src="https://www.google-analytics.com/analytics.js"></script>
     <title>Chat Room</title>
@@ -54,7 +55,6 @@
     <a  href ="{{ url_for('signs') }}" target="_blank">
         <font color="black"><button class="btn success" style="position:absolute; left:23%; top:75%;">Need help with gestures?</button></font>
     </a>
-
 
     <script src="{{ url_for('static', filename = 'local.js')}}"></script>
     <script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="myVideo" data-mirror="false" data-uploadWidth="256" data-scoreThreshold="0.90"></script>

@@ -31,11 +31,11 @@ def home():
 	return render_template('home.html',user_image = full_filename,user_image1 = full_filename1,user_image2 = full_filename2,user_image3 = full_filename3,user_image4 = full_filename4,bg_image = full_filename5,
 		user_image6 = full_filename6,user_image7 = full_filename7,user_image8 = full_filename8,user_image9 = full_filename9,user_image10 = full_filename10)
 
-
+'''
 @app.route('/about')
 def about():
     return '<h1>About Page</h1>' 
-
+'''
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
