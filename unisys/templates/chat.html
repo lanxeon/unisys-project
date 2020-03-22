@@ -48,9 +48,9 @@
     </div>
 
     <div id="chatBar">
-        <ul id="messages">
-            <p id = "topRecv" style = "position: absolute; left: 0; top: 5%; width: 100%; text-align: center; font-size: large;">{{ receiver }}</p><br><br><br>
-        </ul>
+        <div id="messages" style = "height: 100%;">
+            <p id = "topRecv">{{ receiver }}</p>
+        </div>
     </div>
     <a  href ="{{ url_for('signs') }}" target="_blank">
         <font color="black"><button class="btn success" style="position:absolute; left:23%; top:75%;">Need help with gestures?</button></font>

@@ -41,7 +41,6 @@ canvas{
     background-color: #262626;
     top: 68%;
     border-radius: 25px;
-    /*border: 2px solid #1fa1b5;*/
     padding: 10px;
 }
 
@@ -54,7 +53,6 @@ canvas{
     top: 6%;
     border-radius: 25px;
     background-color: #262626;
-    /*border: 2px solid #1fa1b5;*/
     overflow: auto;
 }
 
@@ -73,31 +71,59 @@ label {
     opacity: 87%;
 }
 
+#topRecv {
+    background-color: #2196F3;
+    position: relative;
+    left: 0; 
+    top: 5%; 
+    width: 100%; 
+    text-align: center; 
+    font-size: large;
+    color: white;
+    opacity: 87%;
+    margin-top: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+.msgContainer {
+    position: relative;
+    margin-top: 5px;
+}
 
 span {
     background-color: #4d4d4d;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
     color: white;
     opacity: 87%;
     /*box-shadow: 0 0 5px 2px #4d4d4d;*/
 }
 
-.localText{
-    display: inline-block; 
-    width: 41.63%; 
-    position:relative; 
-    left:53%; 
-    margin-top: 3px; 
+.localText{ 
+    /*width: 41.63%;*/
+    /*width: 230px;*/ 
+    /*position:relative; 
+    left:52%;*/
+    /*margin-top: 3px;*/
+    position: absolute;
+    left: 53%;
+    width: 42%;  
     white-space: initial;
+    display: inline-block;
 }
 
 .remoteText{
+    /*width: 41.63%;*/
+    /*width: 230px;*/
+    /*position:relative;  
+    left:-6%;*/
+    /*margin-top: 3px;*/
     display: inline-block; 
-    width: 41.63%;
-    position:relative; 
-    margin-top: 3px; 
-    left:-6%;
+    position: absolute;
+    left: 2%;
+    width: 42%;
 }
 
 .btn {
@@ -127,9 +153,31 @@ textarea {
     color: white;
     opacity: 87%;
     width: 80%;
-
 }
 
 button:focus{
     outline: none;
 }
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #121212;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #262626;
+    border-radius: 6px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #404040;
+  }
