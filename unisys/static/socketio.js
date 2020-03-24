@@ -14,7 +14,7 @@ $(document).ready(function() {
     }
 
     //for finding the remoteUser once form is submitted
-    remoteUser = $("#topRecv").text();
+    remoteUser = $("#topRecvContent").text();
     console.log("the remote user is: "+remoteUser);
 
     //private sockets
@@ -22,11 +22,24 @@ $(document).ready(function() {
     socket_private.on('user logged in', (usn)=>{
         console.log('user with username '+usn+' has connected on client side');
         localUser = usn;
-        
         if( typeof remoteUser !== 'undefined' && remoteUser !== '')
         {
             socket_private.emit('create or join room', {'localUser': localUser, 'remoteUser': remoteUser});
+            console.log("emmitting the create or join room event");
         }
+    });
+
+    /*
+    if( typeof remoteUser !== 'undefined' && remoteUser !== '' && typeof localUser !== 'undefined' && localUser != '')
+    {
+        socket_private.emit('create or join room', {'localUser': localUser, 'remoteUser': remoteUser});
+        console.log("emmitting the create or join room event");
+    }
+    */
+
+    socket_private.on('joined room', (roomVal) => {
+        room = roomVal;
+        console.log('room name is: '+room);
     });
 
 
@@ -72,12 +85,6 @@ $(document).ready(function() {
     });
 
 
-    socket_private.on('joined room', (roomVal) => {
-        room = roomVal;
-        console.log('room name is: '+room);
-    });
-
-
     
     $('#sendbutton').on('click', function() {
         var message_to_send = $('#myMessage').val();
@@ -92,6 +99,7 @@ $(document).ready(function() {
         div.style.height = span.clientHeight+"px";
         console.log(div.style.height+" "+span.clientHeight);
         //$('#messages').append("<span class = 'localText'><b>"+localUser+" :</b> "+message_to_send+"</span><br>");
+        console.log('Currently, the room number is (while sending msg): '+ room);
         socket_private.emit('private message', {'username' : remoteUser, 'message' : message_to_send, 'sender' : localUser, 'room': room });
         console.log('message sent to: '+remoteUser);
         $('#myMessage').val('');

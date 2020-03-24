@@ -48,8 +48,10 @@
     </div>
 
     <div id="chatBar">
-        <div id="messages" style = "height: 100%;">
-            <p id = "topRecv">{{ receiver }}</p>
+        <div id = "topRecv">
+            <p id="topRecvContent">{{ receiver }}</p>
+        </div>
+        <div id="messages" style = "height: 80%; overflow: auto; margin-bottom: 5px;">
         </div>
     </div>
     <a  href ="{{ url_for('signs') }}" target="_blank">

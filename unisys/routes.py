@@ -148,6 +148,7 @@ def webrtc2():
 
 @socketio.on('private message', namespace = '/private')
 def handle_private_msg(payload):
+	print(str(payload))
 	#recipient_session_id = users[payload['username']]
 	message = payload['message']
 	sender = payload['sender']
@@ -166,23 +167,24 @@ def handle_connect():
 
 @socketio.on('create or join room', namespace = '/private')
 def handle_join_or_create_room(payload):
+	print(str(payload))
 	local = payload['localUser']
 	remote = payload['remoteUser']
 	found = 0
-	for room in rooms:
-		if local in room and remote in room:
+	for roomVal in rooms:
+		if local in roomVal and remote in roomVal:
 			found = 1
-			join_room(room)
-			print(local+' has joined the room '+room+' with '+remote)
-			emit('joined room', room, room = room, namespace = '/private')
+			join_room(roomVal)
+			print(local+' has joined the room '+roomVal+' with '+remote)
+			emit('joined room', roomVal, room = roomVal, namespace = '/private')
 			break
 
 	if found == 0:
-		room = local+'&&&'+remote
-		rooms.append(room)
-		join_room(room)
-		print(local+' has joined the room '+room+' with '+remote)
-		emit('joined room', room, room = room, namespace = '/private')
+		roomVal = local+'&&&'+remote
+		rooms.append(roomVal)
+		join_room(roomVal)
+		print(local+' has joined the room '+roomVal+' with '+remote)
+		emit('joined room', roomVal, room = roomVal, namespace = '/private')
 
 
 @socketio.on('connect')

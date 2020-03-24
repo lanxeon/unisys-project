@@ -75,16 +75,21 @@ label {
     background-color: #2196F3;
     position: relative;
     left: 0; 
-    top: 5%; 
+    top: 3%; 
     width: 100%; 
     text-align: center; 
     font-size: large;
     color: white;
     opacity: 87%;
     margin-top: 0px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 35px;
+    padding-top: 2.3%;
+    padding-bottom: 2.3%;
+    margin-bottom: 5%;
+}
+
+#topRecvContent{
+    margin: 0px;
+    padding: 0px;
 }
 
 .msgContainer {
@@ -126,6 +131,10 @@ span {
     width: 42%;
 }
 
+span:hover {
+    box-shadow: 0 0 5px 2px #4d4d4d;
+}
+
 .btn {
     border: none;
     color: white;
@@ -159,7 +168,7 @@ button:focus{
     outline: none;
 }
 
-
+/*scrollbar stuff*/
 /* width */
 ::-webkit-scrollbar {
     width: 6px;
@@ -167,7 +176,7 @@ button:focus{
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #121212;
+    background: #262626;
     border-radius: 10px;
   }
   
@@ -179,5 +188,9 @@ button:focus{
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #404040;
+    background: #121212;
   }
+
+  #chatBar::-webkit-scrollbar {
+    display: none;
+   }
