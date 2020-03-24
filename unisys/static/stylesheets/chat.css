@@ -54,6 +54,8 @@ canvas{
     border-radius: 25px;
     background-color: #262626;
     overflow: auto;
+    -ms-overflow-style: none; /* IE 11 */
+    scrollbar-width: none; /* Firefox 64 */
 }
 
 input {
@@ -106,12 +108,11 @@ span {
     /*box-shadow: 0 0 5px 2px #4d4d4d;*/
 }
 
+span:hover {
+    box-shadow: 0 0 5px 2px #4d4d4d;
+}
+
 .localText{ 
-    /*width: 41.63%;*/
-    /*width: 230px;*/ 
-    /*position:relative; 
-    left:52%;*/
-    /*margin-top: 3px;*/
     position: absolute;
     left: 53%;
     width: 42%;  
@@ -120,19 +121,10 @@ span {
 }
 
 .remoteText{
-    /*width: 41.63%;*/
-    /*width: 230px;*/
-    /*position:relative;  
-    left:-6%;*/
-    /*margin-top: 3px;*/
     display: inline-block; 
     position: absolute;
     left: 2%;
     width: 42%;
-}
-
-span:hover {
-    box-shadow: 0 0 5px 2px #4d4d4d;
 }
 
 .btn {
@@ -191,6 +183,7 @@ button:focus{
     background: #121212;
   }
 
+  /*hide scrollbar for chrome*/
   #chatBar::-webkit-scrollbar {
     display: none;
    }

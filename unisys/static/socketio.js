@@ -13,6 +13,13 @@ $(document).ready(function() {
         audioElement.play();
     }
 
+    function scrollSmoothToBottom (id) {
+        var div = document.getElementById(id);
+        $('#' + id).animate({
+           scrollTop: div.scrollHeight - div.clientHeight
+        }, 500);
+     }
+
     //for finding the remoteUser once form is submitted
     remoteUser = $("#topRecvContent").text();
     console.log("the remote user is: "+remoteUser);
@@ -29,13 +36,6 @@ $(document).ready(function() {
         }
     });
 
-    /*
-    if( typeof remoteUser !== 'undefined' && remoteUser !== '' && typeof localUser !== 'undefined' && localUser != '')
-    {
-        socket_private.emit('create or join room', {'localUser': localUser, 'remoteUser': remoteUser});
-        console.log("emmitting the create or join room event");
-    }
-    */
 
     socket_private.on('joined room', (roomVal) => {
         room = roomVal;
@@ -46,39 +46,43 @@ $(document).ready(function() {
     socket_private.on('new private message', function(msg, sender) {
         if(sender != localUser || localUser == remoteUser)
         {
-            //$("#messages").append("<span class = 'remoteText'><b>"+sender+" :</b> " +msg+"</span><br>");
             var div = document.createElement("div");
             div.setAttribute("class", "msgContainer");
             var span = document.createElement("span");
             span.setAttribute("class", "remoteText");
             span.innerHTML = "<b>"+sender+" :</b> "+msg;
             div.appendChild(span);
-            //div.innerHTML = "<span class = 'remoteText'><b>"+sender+" :</b> "+msg+"</span>";
+
             $('#messages').append(div);
             div.style.height = span.clientHeight+"px";
-            console.log(div.style.height+" "+span.clientHeight);
-            //$('#messages').append("<br>");
-    
-            let formdata = new FormData();
-            formdata.append("recMsg", msg);
-            
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', ttsServer, true);
-            xhr.onload = function() {
-                if(this.status === 200) {
-                    let payload = JSON.parse(this.response);
-                    url = payload.url;
-                    msgno = payload.msgno;
+            scrollSmoothToBottom("messages");
 
-                    audio = document.createElement('p');
-                    audio.innerHTML = "<audio id = 'id"+msgno+"' src='"+ url + "' controls onloadstart = 'audioStart("+msgno+")' style='position:relative; width:40%; height: 20px; left: 3%;'>";
-                    $("#messages").append(audio);
-                    //$("#messages").append('<br>');
+            ttsCheck = document.getElementById('tts');
+            if(ttsCheck.checked == true) {
+                let formdata = new FormData();
+                formdata.append("recMsg", msg);
+                
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', ttsServer, true);
+                xhr.onload = function() {
+                    if(this.status === 200) {
+                        let payload = JSON.parse(this.response);
+                        url = payload.url;
+                        msgno = payload.msgno;
+
+                        audio = document.createElement('div');
+                        audio.style.marginTop = "7px";
+                        audio.style.marginBottom = "1px";
+                        audio.innerHTML = "<audio id = 'id"+msgno+"' src='"+ url + "' controls onloadstart = 'audioStart("+msgno+")' style='position:relative; width:40%; height: 20px; left: 3%;'>";
+                        $("#messages").append(audio);
+                        scrollSmoothToBottom("messages");
+                    }
+                    else
+                        console.error(xhr);
                 }
-            else
-                console.error(xhr);
+                xhr.send(formdata);
+                console.log('Converting Text-To-Speech');
             }
-            xhr.send(formdata);
             
             console.log('Received message');
         }
@@ -88,18 +92,18 @@ $(document).ready(function() {
     
     $('#sendbutton').on('click', function() {
         var message_to_send = $('#myMessage').val();
+
         var div = document.createElement("div");
         div.setAttribute("class", "msgContainer");
         var span = document.createElement("span");
         span.setAttribute("class", "localText");
         span.innerHTML = "<b>"+localUser+" :</b> "+message_to_send;
         div.appendChild(span);
-        //div.innerHTML = "<span class = 'localText'><b>"+localUser+" :</b> "+message_to_send+"</span>";
+
         $('#messages').append(div);
         div.style.height = span.clientHeight+"px";
-        console.log(div.style.height+" "+span.clientHeight);
-        //$('#messages').append("<span class = 'localText'><b>"+localUser+" :</b> "+message_to_send+"</span><br>");
-        console.log('Currently, the room number is (while sending msg): '+ room);
+        scrollSmoothToBottom("messages");
+
         socket_private.emit('private message', {'username' : remoteUser, 'message' : message_to_send, 'sender' : localUser, 'room': room });
         console.log('message sent to: '+remoteUser);
         $('#myMessage').val('');

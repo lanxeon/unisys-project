@@ -28,10 +28,7 @@ let imageCtx = imageCanvas.getContext("2d");
 //create a canvas for drawing object boundaries
 let drawCanvas = document.createElement('canvas');
 document.body.appendChild(drawCanvas);
-//document.getElementById('vid').appendChild(drawCanvas);
 let drawCtx = drawCanvas.getContext("2d");
-//drawCanvas.style.position = 'absolute';
-//drawCtx.style.position = 'absolute';
 
 //draw boxes and labels on each detected object
 function drawBoxes(objects) {
@@ -49,14 +46,6 @@ function drawBoxes(objects) {
         let width = (object.width * drawCanvas.width) - x;
         let height = (object.height * drawCanvas.height) - y;
         console.log(object.sentence_generated+object.generated_sentence);
-        
-/*
-       let x = object.x * videoWidth.width;
-       let y = object.y * videoHeight.height;
-       let width = (object.width * videoWidth.width) - x;
-       let height = (object.height * videoHeight.height) - y;
-       console.log(object.sentence_generated+object.generated_sentence);
-*/
 
 
         if(object.sentence_generated == "true")
@@ -79,7 +68,6 @@ function drawBoxes(objects) {
 //Add file blob to a form and post
 function postFile(file) {
 
-    
     let auto = "false";
     //get the autocorrect checkbox
     autoCorrect = document.getElementById('autoCorrect');
@@ -154,4 +142,3 @@ v.onplaying = () => {
         startObjectDetection();
     }
 };
-
