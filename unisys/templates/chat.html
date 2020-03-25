@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     
+    <title>Chat Room</title>
+
     <link href='https://fonts.googleapis.com/css?family=Raleway' type="text/css" rel='stylesheet'>
     <script>
         //  philipwalton.com/articles/the-google-analytics-setup-i-use-on-every-site-i-build
@@ -17,7 +19,6 @@
     <link rel="stylesheet" href = "{{ url_for('static', filename = 'stylesheets/chat.css') }}">
 
     <script async src="https://www.google-analytics.com/analytics.js"></script>
-    <title>Chat Room</title>
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -39,8 +40,11 @@
 
     <div id = "msgBar">
         <!--<font color="white" size = "4.5">Send To: <input type="text" id="send_to_username"></font><br><br>-->
-        <font color="white" size="4.5">Send Message:<br><textarea rows="4" cols="50" style="resize: none; font-family:'Raleway'; font-size: 18px;" id="myMessage" placeholder="Type or gesture a message" ></textarea>
-        <button id="sendbutton" class="btn info" style="position: absolute; left: 84%; top: 35%; width: 10%;"><i class="material-icons">send</i></button>
+        <font color="white" size="4.5">Send Message</font><br>
+        <textarea rows="4" cols="50" id="myMessage" placeholder="Type or gesture a message" ></textarea>
+        <button id="sendbutton" class="btn info send">
+            <i class="material-icons">send</i>
+        </button>
         <div>
             <input type = "checkbox" id = "autoCorrect" name="auto" style = "position: relative; top: 2px;">
             <label for="auto" style = "font-size:14px; color: white; opacity: 63%">Enable Sign to Text autocorrect?</label>
@@ -57,12 +61,12 @@
         <div id="messages" style = "height: 80%; overflow: auto; margin-bottom: 5px;">
         </div>
     </div>
-    <a  href ="{{ url_for('signs') }}" target="_blank">
-        <font color="black"><button class="btn success" style="position:absolute; left:23%; top:75%;">Need help with gestures?</button></font>
+    <a href ="{{ url_for('signs') }}" target="_blank">
+        <button class="btn success gestureHelp">Need help with gestures?</button>
     </a>
 
     <script src="{{ url_for('static', filename = 'local.js')}}"></script>
-    <script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="myVideo" data-mirror="false" data-uploadWidth="256" data-scoreThreshold="0.90"></script>
+    <script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="myVideo" data-mirror="false" data-uploadWidth="640" data-scoreThreshold="0.90"></script>
 {% endif %}
 </body>
 </html>

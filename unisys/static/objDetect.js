@@ -1,7 +1,8 @@
-/**
- * Created by chad hart on 11/30/17.
- * Client side of Tensor Flow Object Detection Web API
- * Written for webrtcHacks - https://webrtchacks.com
+/*
+ * Taken from Chad Hart's "Object detection Web API" article from webrtchacks.com
+ * and modified greatly for suiting the audio element creation as well as
+ * to support dynamically resizing the canvas for various widths and heights
+ * of the video on the webpage 
  */
 
 //Parameters
@@ -14,6 +15,9 @@ const apiServer = s.getAttribute("data-apiServer") || window.location.origin + '
 
 //Video element selector
 v = document.getElementById(sourceVideo);
+
+v.width = window.innerWidth * 0.4;
+v.height = v.width * 0.5625;
 
 //for starting events
 let isPlaying = false,
@@ -106,8 +110,15 @@ function startObjectDetection() {
     console.log("starting object detection asdfghjk");
 
     //Set canvas sizes based on input video
+    /*
     drawCanvas.width = v.videoWidth;
     drawCanvas.height = v.videoHeight;
+    */
+
+    //trial and error
+    drawCanvas.width = v.width;
+    drawCanvas.height = v.height;
+    
 
     imageCanvas.width = uploadWidth;
     imageCanvas.height = uploadWidth * (v.videoHeight / v.videoWidth);

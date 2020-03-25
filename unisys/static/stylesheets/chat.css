@@ -15,11 +15,10 @@ div, button{
 }
 video {
     position: absolute;
-    /*border: 4px solid black;*/
     top:6%;
     left:3%;
-    width: 51%;
-    height: 61%;
+    /*width: 40%;*/
+    /*height: 61%;*/
     z-index: -1;
     /*Mirror the local video */
     transform: scale(-1, 1);            /*For Firefox (& IE) */
@@ -29,9 +28,11 @@ canvas{
     position: absolute;
     top: 6%;
     left: 3%;
+    /*
     width: 51%;
     height: 61%;
-    z-index:1;
+    */
+    z-index: 1;
 }
 
 #msgBar {
@@ -133,16 +134,32 @@ span:hover {
     opacity: 87%;
     padding: 10px;
     font-size: 18px;
-    cursor: pointer;
-    border-radius: 47%;
+
 }
 
-.info {background-color: #2196F3; } /* Blue */
-.info:hover {background: #0b7dda;}
+.info {background-color: #2196F3; } /*blue*/
+.info:hover {background: #0b7dda; }
 
-.success {background-color: #4CAF50; } /* Green */
-.success:hover {background-color: #46a049;}
+.success { background-color: #4CAF50; } /*green*/
+.success:hover {background-color: #46a049; }
 
+.send {
+    cursor: pointer;
+    border-radius: 45%;
+    position: absolute; 
+    left: 84%; 
+    top: 35%; 
+    width: 10%;
+}
+
+.gestureHelp {
+    position:absolute; 
+    left:22%; 
+    top: 75%;
+    width: 12%; 
+    border-radius: 7px;
+    padding: 6px;
+}
 
 textarea {
     position: relative;
@@ -154,6 +171,13 @@ textarea {
     color: white;
     opacity: 87%;
     width: 80%;
+    height: 100%;
+}
+
+#myMessage {
+    resize: none; 
+    font-family:'Raleway'; 
+    font-size: 18px;
 }
 
 button:focus{

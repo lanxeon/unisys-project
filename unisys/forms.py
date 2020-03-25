@@ -29,6 +29,7 @@ class Login(FlaskForm):
 	remember=BooleanField('Remember me')
 	submit=SubmitField('Log in')
 
+
 class Chat(FlaskForm):
 	receiver = StringField('Receiver :', validators = [DataRequired()])
 	submitRecv = SubmitField('Connect!')

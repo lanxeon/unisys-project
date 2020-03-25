@@ -41,13 +41,14 @@ def about():
 def register():
 	if current_user.is_authenticated:
 		return redirect(url_for('home'))
+
 	form = Registration()
 	if form.validate_on_submit():
 		hashed_password = bcrypt.generate_password_hash(form.pwd.data).decode('utf-8')
 		user = User(fname = form.fname.data, lname = form.lname.data, usn = form.usn.data, pwd = hashed_password, email = form.email.data)
 		db.session.add(user)
 		db.session.commit()
-		flash(f'Registered successfully', 'success')
+		flash(f'Registered successfully, You can now Login with your account', 'success')
 		return redirect(url_for('login'))
 
 	return render_template('register.html', form = form)
@@ -57,12 +58,13 @@ def login():
 	full_filename11 = os.path.join(app.config['UPLOAD_FOLDER'], 'login.jpeg')
 	if current_user.is_authenticated:
 		return redirect(url_for('home'))
+
 	form = Login()
 	if form.validate_on_submit():
 		user = User.query.filter_by(email = form.email.data).first()
 		if user and bcrypt.check_password_hash(user.pwd , form.pwd.data):
 			login_user(user, remember=form.remember.data)
-			flash(f'Registered successfully', 'success')
+			flash(f'Logged in successfully', 'success')
 			next_page = request.args.get('next')
 			return redirect(next_page) if next_page else redirect(url_for('home'))
 
@@ -113,7 +115,7 @@ def image():
 		return objects
 
 	except Exception as e:
-		print('POST /image error: '+e)
+		print('POST /image error: '+ str(e))
 		return e
 
 
