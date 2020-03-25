@@ -16,8 +16,22 @@ const apiServer = s.getAttribute("data-apiServer") || window.location.origin + '
 //Video element selector
 v = document.getElementById(sourceVideo);
 
+//provide width and height of vieo depending on window size
 v.width = window.innerWidth * 0.4;
 v.height = v.width * 0.5625;
+
+//resize video and canvas accordingly
+window.addEventListener("resize", ev => {
+    let w = window.innerWidth * 0.4;
+    let h = w * 0.5625;
+  
+    if (w && h) {
+      v.width = w;
+      v.height = h;
+      drawCanvas.width = v.width;
+      drawCanvas.height = v.height;
+    }
+  }, false);
 
 //for starting events
 let isPlaying = false,

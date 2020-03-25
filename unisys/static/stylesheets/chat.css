@@ -17,8 +17,6 @@ video {
     position: absolute;
     top:6%;
     left:3%;
-    /*width: 40%;*/
-    /*height: 61%;*/
     z-index: -1;
     /*Mirror the local video */
     transform: scale(-1, 1);            /*For Firefox (& IE) */
@@ -28,10 +26,6 @@ canvas{
     position: absolute;
     top: 6%;
     left: 3%;
-    /*
-    width: 51%;
-    height: 61%;
-    */
     z-index: 1;
 }
 
@@ -41,7 +35,7 @@ canvas{
     width: 39%;
     background-color: #262626;
     top: 68%;
-    border-radius: 25px;
+    border-radius: 10px;
     padding: 10px;
 }
 
@@ -52,11 +46,13 @@ canvas{
     height: 58%;  
     padding: 10px;
     top: 6%;
-    border-radius: 25px;
+    border-radius: 10px;
     background-color: #262626;
     overflow: auto;
+    /* Hide scrollbar */
     -ms-overflow-style: none; /* IE 11 */
     scrollbar-width: none; /* Firefox 64 */
+    overflow-x: visible;
 }
 
 input {
@@ -76,23 +72,32 @@ label {
 
 #topRecv {
     background-color: #2196F3;
-    position: relative;
+    position: absolute;
     left: 0; 
-    top: 3%; 
+    top: 0; 
     width: 100%; 
     text-align: center; 
     font-size: large;
     color: white;
     opacity: 87%;
     margin-top: 0px;
-    padding-top: 2.3%;
-    padding-bottom: 2.3%;
-    margin-bottom: 5%;
+    padding-top: 2.4%;
+    padding-bottom: 2.4%;
 }
 
 #topRecvContent{
     margin: 0px;
     padding: 0px;
+}
+
+#messages {
+    position: relative;
+    height: 86%; 
+    overflow: auto; 
+    margin-bottom: 5px;
+    top: 10%;
+    padding-top: 6px;
+    margin-top: 1%;
 }
 
 .msgContainer {
@@ -188,8 +193,9 @@ button:focus{
 /* width */
 ::-webkit-scrollbar {
     width: 6px;
+    height: 0px;
   }
-  
+
   /* Track */
   ::-webkit-scrollbar-track {
     background: #262626;
@@ -199,9 +205,14 @@ button:focus{
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: #262626;
-    border-radius: 6px;
+    border-radius: 7px;
   }
   
+  /* Track on Hover */
+  ::-webkit-scrollbar-track:hover {
+      background: #404040;
+  }
+
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #121212;

@@ -87,25 +87,30 @@ $(document).ready(function() {
             console.log('Received message');
         }
     });
-
-
     
+
     $('#sendbutton').on('click', function() {
         var message_to_send = $('#myMessage').val();
+        
+        //make sure there is content in the textarea before sending
+        if(message_to_send.trim() == "")
+            alert("You need to enter a message first, " + localUser + "!");
+        else
+        {
+            var div = document.createElement("div");
+            div.setAttribute("class", "msgContainer");
+            var span = document.createElement("span");
+            span.setAttribute("class", "localText");
+            span.innerHTML = "<b>"+localUser+" :</b> "+message_to_send;
+            div.appendChild(span);
 
-        var div = document.createElement("div");
-        div.setAttribute("class", "msgContainer");
-        var span = document.createElement("span");
-        span.setAttribute("class", "localText");
-        span.innerHTML = "<b>"+localUser+" :</b> "+message_to_send;
-        div.appendChild(span);
+            $('#messages').append(div);
+            div.style.height = span.clientHeight+"px";
+            scrollSmoothToBottom("messages");
 
-        $('#messages').append(div);
-        div.style.height = span.clientHeight+"px";
-        scrollSmoothToBottom("messages");
-
-        socket_private.emit('private message', {'username' : remoteUser, 'message' : message_to_send, 'sender' : localUser, 'room': room });
-        console.log('message sent to: '+remoteUser);
-        $('#myMessage').val('');
+            socket_private.emit('private message', {'username' : remoteUser, 'message' : message_to_send, 'sender' : localUser, 'room': room });
+            console.log('message sent to: '+remoteUser);
+            $('#myMessage').val('');
+        }
     });
 });     

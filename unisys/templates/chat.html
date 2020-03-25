@@ -38,6 +38,14 @@
 {% if user_connected %}
     <video id="myVideo" autoplay></video>
 
+    <div id="chatBar">
+        <div id = "topRecv">
+            <p id="topRecvContent">{{ receiver }}</p>
+        </div>
+        <div id="messages">
+        </div>
+    </div>
+
     <div id = "msgBar">
         <!--<font color="white" size = "4.5">Send To: <input type="text" id="send_to_username"></font><br><br>-->
         <font color="white" size="4.5">Send Message</font><br>
@@ -54,13 +62,6 @@
         </div>
     </div>
 
-    <div id="chatBar">
-        <div id = "topRecv">
-            <p id="topRecvContent">{{ receiver }}</p>
-        </div>
-        <div id="messages" style = "height: 80%; overflow: auto; margin-bottom: 5px;">
-        </div>
-    </div>
     <a href ="{{ url_for('signs') }}" target="_blank">
         <button class="btn success gestureHelp">Need help with gestures?</button>
     </a>
