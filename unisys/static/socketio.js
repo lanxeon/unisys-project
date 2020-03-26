@@ -108,7 +108,7 @@ $(document).ready(function() {
             div.style.height = span.clientHeight+"px";
             scrollSmoothToBottom("messages");
 
-            socket_private.emit('private message', {'username' : remoteUser, 'message' : message_to_send, 'sender' : localUser, 'room': room });
+            socket_private.emit('private message', {'receiver' : remoteUser, 'message' : message_to_send, 'sender' : localUser, 'room': room });
             console.log('message sent to: '+remoteUser);
             $('#myMessage').val('');
         }

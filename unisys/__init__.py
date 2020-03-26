@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = IMAGE_FOLDER
 app.config['FILEDIR'] = 'static/audio_files/'
 app.config['SECRET_KEY'] = '2176705b4162dfcb2ed72d1430cba3c8'
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///wtf.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///wtf.db'
 #app.config['SESSION_TYPE'] = 'filesystem'
 
 
@@ -21,7 +21,7 @@ lm=LoginManager(app)
 #Session(app)
 socketio = SocketIO(app)
 
-lm.login_view='login'
+lm.login_view = 'login'
 lm.login_message_category = 'info'
 
 from unisys import routes

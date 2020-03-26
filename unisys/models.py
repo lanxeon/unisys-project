@@ -17,3 +17,13 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f"User(name:'{self.fname} {self.lname}', email:'{self.email}', usn: '{self.usn}')"
+
+class MessageHistory(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    roomName = db.Column(db.String(100))
+    sender = db.Column(db.String(50))
+    receiver = db.Column(db.String(50))
+    message = db.Column(db.String(800))
+
+    def __repr__(self):
+        return f"MessageHistory( roomName:' {self.roomName} ', sender: ' {self.sender} '), receiver: ' {self.receiver} ')"

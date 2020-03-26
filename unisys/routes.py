@@ -5,13 +5,14 @@ from flask_socketio import send, emit, join_room, leave_room
 import os
 import unisys.Object_detection_webcam as objDetApi
 from unisys.forms import Registration, Login, Chat
-from unisys.models import User
+from unisys.models import User, MessageHistory
 from PIL import Image
 from gtts import gTTS
-from pygame import mixer
+from sqlalchemy import or_
+#from pygame import mixer
 
 users = {}
-rooms = []
+#rooms = []
 i = 0
 
 @app.route('/')
@@ -83,8 +84,12 @@ def chat():
 	form = Chat()
 	user_connected = False
 	if form.validate_on_submit():
+		print("hey, form validated")
+		sender = current_user.usn
+		receiver = form.receiver.data
+		messages = MessageHistory.query.filter(or_( MessageHistory.roomName == sender+"&&&"+receiver, MessageHistory.roomName == receiver+"&&&"+sender)).all()
 		user_connected = True
-		return render_template('chat.html', receiver = form.receiver.data, user_connected = user_connected)
+		return render_template('chat.html', receiver = receiver, user_connected = user_connected, messages = messages)
 	return render_template('chat.html', form = form, user_connected = user_connected)
 
 
@@ -152,9 +157,13 @@ def webrtc2():
 def handle_private_msg(payload):
 	print(str(payload))
 	#recipient_session_id = users[payload['username']]
+	receiver = payload['receiver']
 	message = payload['message']
 	sender = payload['sender']
 	room = payload['room']
+	msgDB = MessageHistory(roomName = room, sender = sender, receiver = receiver, message = message)
+	db.session.add(msgDB)
+	db.session.commit()
 	emit('new private message', (message, sender), room = room, namespace = '/private')
 
 
@@ -173,7 +182,12 @@ def handle_join_or_create_room(payload):
 	local = payload['localUser']
 	remote = payload['remoteUser']
 	found = 0
+	#roomObjects = MessageHistory.query.distinct(MessageHistory.roomName).all()
+	#rooms = [row.roomName for row in roomObjects]
+	rooms = MessageHistory.query.with_entities(MessageHistory.roomName).distinct()
+	print(rooms)
 	for roomVal in rooms:
+		print(roomVal)
 		if local in roomVal and remote in roomVal:
 			found = 1
 			join_room(roomVal)
@@ -183,7 +197,7 @@ def handle_join_or_create_room(payload):
 
 	if found == 0:
 		roomVal = local+'&&&'+remote
-		rooms.append(roomVal)
+		#rooms.append(roomVal)
 		join_room(roomVal)
 		print(local+' has joined the room '+roomVal+' with '+remote)
 		emit('joined room', roomVal, room = roomVal, namespace = '/private')

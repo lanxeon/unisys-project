@@ -43,6 +43,11 @@
             <p id="topRecvContent">{{ receiver }}</p>
         </div>
         <div id="messages">
+            {% for message in messages %}
+            <div class = "msgContainer">
+                <span class="localText"><b>{{ message.sender }}: </b>{{ message.message }}</span> 
+            </div>
+            {% endfor %}
         </div>
     </div>
 
