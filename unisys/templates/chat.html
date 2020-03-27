@@ -43,18 +43,22 @@
             <p id="topRecvContent">{{ receiver }}</p>
         </div>
         <div id="messages">
-            {% for message in messages %}
-            <div class = "msgContainer">
-                <span class="localText"><b>{{ message.sender }}: </b>{{ message.message }}</span> 
-            </div>
-            {% endfor %}
+            <script type="application/javascript">
+                {% for message in messages %}
+                    {% if message.sender == sender %}
+                        appendMessage("localText","{{ message.sender|safe }}", "{{ message.message|safe }}");
+                    {% else %}
+                        appendMessage("remoteText","{{ message.sender|safe }}", "{{ message.message|safe }}");
+                    {% endif %}
+                {% endfor %}
+                scrollSmoothToBottom("messages");
+            </script>
         </div>
     </div>
 
     <div id = "msgBar">
-        <!--<font color="white" size = "4.5">Send To: <input type="text" id="send_to_username"></font><br><br>-->
         <font color="white" size="4.5">Send Message</font><br>
-        <textarea rows="4" cols="50" id="myMessage" placeholder="Type or gesture a message" ></textarea>
+        <textarea rows ="4" cols="50" id="myMessage" placeholder="Type or gesture a message" ></textarea>
         <button id="sendbutton" class="btn info send">
             <i class="material-icons">send</i>
         </button>

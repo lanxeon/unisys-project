@@ -18,12 +18,23 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User(name:'{self.fname} {self.lname}', email:'{self.email}', usn: '{self.usn}')"
 
-class MessageHistory(db.Model):
+class Message_room(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    roomName = db.Column(db.String(100))
-    sender = db.Column(db.String(50))
-    receiver = db.Column(db.String(50))
-    message = db.Column(db.String(800))
+    roomName = db.Column(db.String(100), unique = True)
+    user1 = db.Column(db.String(50), nullable = False)
+    user2 = db.Column(db.String(50), nullable = False)
+    messages = db.relationship("Message", backref = "room", lazy = True)
 
     def __repr__(self):
-        return f"MessageHistory( roomName:' {self.roomName} ', sender: ' {self.sender} '), receiver: ' {self.receiver} ')"
+        return f"Message_room( roomName:'{self.roomName}' )"
+
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    sender = db.Column(db.String(50), nullable = False)
+    receiver = db.Column(db.String(50), nullable = False)
+    message = db.Column(db.Text, nullable = False)
+    room_id = db.Column(db.Integer, db.ForeignKey('message_room.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Messages( sender: '{self.sender}'), receiver: '{self.receiver}' )"
+

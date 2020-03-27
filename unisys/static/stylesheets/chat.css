@@ -35,7 +35,7 @@ canvas{
     width: 39%;
     background-color: #262626;
     top: 68%;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 10px;
 }
 
@@ -45,8 +45,9 @@ canvas{
     width: 39%;
     height: 58%;  
     padding: 10px;
+    margin-bottom: 15px;
     top: 6%;
-    border-radius: 10px;
+    border-radius: 5px;
     background-color: #262626;
     overflow: auto;
     /* Hide scrollbar */
@@ -73,11 +74,11 @@ label {
 #topRecv {
     background-color: #2196F3;
     position: absolute;
+    height: 3.5%;
     left: 0; 
     top: 0; 
     width: 100%; 
     text-align: center; 
-    font-size: large;
     color: white;
     opacity: 87%;
     margin-top: 0px;
@@ -88,16 +89,18 @@ label {
 #topRecvContent{
     margin: 0px;
     padding: 0px;
+    font-size: large;
 }
 
 #messages {
     position: relative;
-    height: 86%; 
-    overflow: auto; 
-    margin-bottom: 5px;
+    overflow: auto;
     top: 10%;
-    padding-top: 6px;
+    height: 85%; 
+    margin-bottom: 1%;
     margin-top: 1%;
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
 
 .msgContainer {
@@ -119,11 +122,11 @@ span:hover {
 }
 
 .localText{ 
+    display: inline-block;
     position: absolute;
     left: 53%;
-    width: 42%;  
+    width: 42%;
     white-space: initial;
-    display: inline-block;
 }
 
 .remoteText{
@@ -131,6 +134,7 @@ span:hover {
     position: absolute;
     left: 2%;
     width: 42%;
+    white-space: initial;
 }
 
 .btn {
@@ -139,7 +143,6 @@ span:hover {
     opacity: 87%;
     padding: 10px;
     font-size: 18px;
-
 }
 
 .info {background-color: #2196F3; } /*blue*/
@@ -150,7 +153,7 @@ span:hover {
 
 .send {
     cursor: pointer;
-    border-radius: 45%;
+    border-radius: 50%;
     position: absolute; 
     left: 84%; 
     top: 35%; 
@@ -167,7 +170,7 @@ span:hover {
 }
 
 textarea {
-    position: relative;
+    /*position: relative;*/
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -176,7 +179,6 @@ textarea {
     color: white;
     opacity: 87%;
     width: 80%;
-    height: 100%;
 }
 
 #myMessage {
@@ -222,3 +224,34 @@ button:focus{
   #chatBar::-webkit-scrollbar {
     display: none;
    }
+
+   @media only screen and (max-height: 550px) {
+       
+    #topRecvContent {
+        margin: 0px;
+        padding: 0px;
+        font-size: medium;
+       }
+
+    textarea {
+        position: relative;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        border: 1px solid #4d4d4d;
+        background-color: #4d4d4d;
+        color: white;
+        opacity: 87%;
+        width: 80%;
+    }
+  }
+
+  @media only screen and (max-height: 400px) {
+    #topRecvContent {
+     margin: 0px;
+     padding: 0px;
+     font-size: small;
+    }
+}
+
+  

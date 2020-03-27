@@ -5,7 +5,7 @@ from flask_socketio import send, emit, join_room, leave_room
 import os
 import unisys.Object_detection_webcam as objDetApi
 from unisys.forms import Registration, Login, Chat
-from unisys.models import User, MessageHistory
+from unisys.models import User, Message_room, Message
 from PIL import Image
 from gtts import gTTS
 from sqlalchemy import or_
@@ -87,9 +87,16 @@ def chat():
 		print("hey, form validated")
 		sender = current_user.usn
 		receiver = form.receiver.data
-		messages = MessageHistory.query.filter(or_( MessageHistory.roomName == sender+"&&&"+receiver, MessageHistory.roomName == receiver+"&&&"+sender)).all()
+		room = Message_room.query.filter((Message_room.roomName == sender+"&&&"+receiver)|(Message_room.roomName == receiver+"&&&"+sender)).first()
+		print(room)
+		if room:
+			messages = room.messages
+		else:
+			messages = []
+		#messages = MessageHistory.query.filter(or_( MessageHistory.roomName == sender+"&&&"+receiver, MessageHistory.roomName == receiver+"&&&"+sender)).all()
+		print(messages)
 		user_connected = True
-		return render_template('chat.html', receiver = receiver, user_connected = user_connected, messages = messages)
+		return render_template('chat.html', sender = sender, receiver = receiver, user_connected = user_connected, messages = messages)
 	return render_template('chat.html', form = form, user_connected = user_connected)
 
 
@@ -161,7 +168,8 @@ def handle_private_msg(payload):
 	message = payload['message']
 	sender = payload['sender']
 	room = payload['room']
-	msgDB = MessageHistory(roomName = room, sender = sender, receiver = receiver, message = message)
+	roomID = payload['roomID']
+	msgDB = Message(room_id = roomID, sender = sender, receiver = receiver, message = message)
 	db.session.add(msgDB)
 	db.session.commit()
 	emit('new private message', (message, sender), room = room, namespace = '/private')
@@ -181,26 +189,34 @@ def handle_join_or_create_room(payload):
 	print(str(payload))
 	local = payload['localUser']
 	remote = payload['remoteUser']
-	found = 0
-	#roomObjects = MessageHistory.query.distinct(MessageHistory.roomName).all()
-	#rooms = [row.roomName for row in roomObjects]
-	rooms = MessageHistory.query.with_entities(MessageHistory.roomName).distinct()
+	roomVal = ""
+	room_id = -1
+	found = 0 
+	rooms = [(row.id,row.roomName,row.user1,row.user2) for row in Message_room.query.all()]
 	print(rooms)
-	for roomVal in rooms:
-		print(roomVal)
-		if local in roomVal and remote in roomVal:
+	for roomid, room, user1, user2 in rooms:
+		print("in for loop of 'create or join room event', room: "+room)
+		if (user1 == local and user2 == remote) or (user1 == remote and user2 == local):
 			found = 1
-			join_room(roomVal)
-			print(local+' has joined the room '+roomVal+' with '+remote)
-			emit('joined room', roomVal, room = roomVal, namespace = '/private')
+			roomVal = room
+			room_id = roomid
 			break
+	
+	if found == 1:
+		join_room(roomVal)
+		print(local+' has joined the room '+roomVal+' with '+remote+'(Already existed)')
+		emit('joined room', (room_id, roomVal), room = roomVal, namespace = '/private')
 
-	if found == 0:
+	elif found == 0:
 		roomVal = local+'&&&'+remote
-		#rooms.append(roomVal)
+		roomDB = Message_room(roomName = roomVal, user1 = local, user2 = remote)
+		db.session.add(roomDB)
+		db.session.commit()
+		room_id = Message_room.query.filter_by(roomName = roomVal).first().id
+
 		join_room(roomVal)
 		print(local+' has joined the room '+roomVal+' with '+remote)
-		emit('joined room', roomVal, room = roomVal, namespace = '/private')
+		emit('joined room', (room_id, roomVal), room = roomVal, namespace = '/private')
 
 
 @socketio.on('connect')

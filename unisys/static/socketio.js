@@ -1,11 +1,34 @@
+
+//for appending message to the textbox
+window.appendMessage = (messageClass, messageSender, messageContent) => {
+    var div = document.createElement("div");
+    div.setAttribute("class", "msgContainer");
+    var span = document.createElement("span");
+    span.setAttribute("class", messageClass);
+    span.innerHTML = "<b>"+messageSender+" :</b> "+messageContent;
+    div.appendChild(span);
+
+    $('#messages').append(div);
+    div.style.height = span.clientHeight+"px";
+    //scrollSmoothToBottom("messages");
+};
+
+//for scrolling smoothly on appending message
+window.scrollSmoothToBottom = (id) => {
+    var div = document.getElementById(id);
+    $('#' + id).animate({ scrollTop: div.scrollHeight - div.clientHeight }, 500);
+}
+
+
 $(document).ready(function() {
     var socket = io();
     var socket_private = io.connect('/private');
     var localUser;
     var remoteUser;
     var room;
+    var roomID;
     ttsServer = window.location.origin+'/tts';
-    
+
 
     //script for autplaying audio element on first load
     window.audioStart = function(msgno) {
@@ -13,12 +36,6 @@ $(document).ready(function() {
         audioElement.play();
     }
 
-    function scrollSmoothToBottom (id) {
-        var div = document.getElementById(id);
-        $('#' + id).animate({
-           scrollTop: div.scrollHeight - div.clientHeight
-        }, 500);
-     }
 
     //for finding the remoteUser once form is submitted
     remoteUser = $("#topRecvContent").text();
@@ -37,8 +54,9 @@ $(document).ready(function() {
     });
 
 
-    socket_private.on('joined room', (roomVal) => {
+    socket_private.on('joined room', (id,roomVal) => {
         room = roomVal;
+        roomID = id;
         console.log('room name is: '+room);
     });
 
@@ -46,15 +64,7 @@ $(document).ready(function() {
     socket_private.on('new private message', function(msg, sender) {
         if(sender != localUser || localUser == remoteUser)
         {
-            var div = document.createElement("div");
-            div.setAttribute("class", "msgContainer");
-            var span = document.createElement("span");
-            span.setAttribute("class", "remoteText");
-            span.innerHTML = "<b>"+sender+" :</b> "+msg;
-            div.appendChild(span);
-
-            $('#messages').append(div);
-            div.style.height = span.clientHeight+"px";
+            appendMessage("remoteText", sender, msg);
             scrollSmoothToBottom("messages");
 
             ttsCheck = document.getElementById('tts');
@@ -97,18 +107,10 @@ $(document).ready(function() {
             alert("You need to enter a message first, " + localUser + "!");
         else
         {
-            var div = document.createElement("div");
-            div.setAttribute("class", "msgContainer");
-            var span = document.createElement("span");
-            span.setAttribute("class", "localText");
-            span.innerHTML = "<b>"+localUser+" :</b> "+message_to_send;
-            div.appendChild(span);
-
-            $('#messages').append(div);
-            div.style.height = span.clientHeight+"px";
+            appendMessage("localText", localUser, message_to_send);
             scrollSmoothToBottom("messages");
 
-            socket_private.emit('private message', {'receiver' : remoteUser, 'message' : message_to_send, 'sender' : localUser, 'room': room });
+            socket_private.emit('private message', {'receiver' : remoteUser, 'message' : message_to_send, 'sender' : localUser, 'room': room , 'roomID': roomID});
             console.log('message sent to: '+remoteUser);
             $('#myMessage').val('');
         }
