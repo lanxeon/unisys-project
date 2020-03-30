@@ -124,8 +124,9 @@ span:hover {
 .localText{ 
     display: inline-block;
     position: absolute;
-    left: 53%;
-    width: 42%;
+    /*left: 35%;*/
+    right: 2%;
+    max-width: 62%;
     white-space: initial;
 }
 
@@ -133,7 +134,7 @@ span:hover {
     display: inline-block; 
     position: absolute;
     left: 2%;
-    width: 42%;
+    max-width: 62%;
     white-space: initial;
 }
 
