@@ -13,33 +13,47 @@ window.appendMessage = (messageClass, messageSender, messageContent) => {
     //scrollSmoothToBottom("messages");
 };
 
+
 //for scrolling smoothly on appending message
 window.scrollSmoothToBottom = (id) => {
     var div = document.getElementById(id);
     $('#' + id).animate({ scrollTop: div.scrollHeight - div.clientHeight }, 500);
-}
+};
+
+
+//Conversion of base64 string to BLOB object. Copied off stack overflow
+window.b64toBlob = (b64Data, contentType='', sliceSize=512) => {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+    
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize);
+    
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+        }
+    
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+    
+    const blob = new Blob(byteArrays, {type: contentType});
+    return blob;
+};
+
 
 
 $(document).ready(function() {
-    /*
-    var socket = io();
-    var socket_private = io.connect('/private');
-    var localUser;
-    var remoteUser;
-    var room;
-    var roomID;
-    ttsServer = window.location.origin+'/tts';
-    */
-
-   window.socket = io();
+  
+   window.socket = io(); //default namespace
    window.socket_private = io.connect('/private');
    window.localUser;
    window.remoteUser;
    window.room;
    window.roomID;
-   window.ttsServer = window.location.origin+'/tts';
-   //socketIO namespace for webrtc video chat 
-   window.socket_video = io.connect('/video');
+   window.ttsServer = window.location.origin+'/tts'; 
+   window.socket_video = io.connect('/video'); //socketIO namespace for webrtc video chat
 
 
     //script for autplaying audio element on first load
@@ -55,6 +69,7 @@ $(document).ready(function() {
 
     //private sockets
 
+    //Response from user side on 'connect' event
     socket_private.on('user logged in', (usn)=>{
         console.log('user with username '+usn+' has connected on client side');
         localUser = usn;
@@ -66,6 +81,8 @@ $(document).ready(function() {
     });
 
 
+    
+    //On joining room after querying DB and stuff
     socket_private.on('joined room', (id,roomVal) => {
         room = roomVal;
         roomID = id;
@@ -73,6 +90,8 @@ $(document).ready(function() {
     });
 
 
+
+    //On receiving a text message
     socket_private.on('new private message', function(msg, sender) {
         if(sender != localUser || localUser == remoteUser)
         {
@@ -109,8 +128,54 @@ $(document).ready(function() {
             console.log('Received message');
         }
     });
+
+
+    //On receiving an image
+    socket_private.on('image file', (payload) => {
+        if(payload.sender != localUser || localUser == remoteUser)
+        {
+            const file = payload.file;
+            const fileName = payload.fileName;
+
+            //extract the pure base 64 sting and contentType
+            const fileDecoded = file.slice(file.indexOf(",")+1,file.length);
+            const contentType = file.slice(file.indexOf("image/")+1,file.indexOf(";")+1);
+
+            const blob = b64toBlob(fileDecoded, contentType);
+            //const blobUrl = URL.createObjectURL(blob);
+
+            //blob url conversion
+            const url = URL.createObjectURL(blob);
+
+            //adding image to div
+            var div = document.createElement("div");
+            div.setAttribute("class", "msgContainer");
+            var img = document.createElement("img");
+            img.setAttribute("class", "remoteImg");
+            img.src = url;
+            div.appendChild(img);
+
+            //adding dummy span for ::before pseudoelement
+            var span = document.createElement("span");
+            span.setAttribute("class", "remoteTextEmpty");
+            //span.innerHTML = "<b>"+messageSender+" :</b> "+messageContent;
+            div.appendChild(span);
+
+            var w,h;
+
+            //need to add onload inorder to get image width and height
+            img.onload = () => {
+                w = img.width;
+                h = img.height;
+                div.style.height = img.clientHeight+"px";
+            }
+            $('#messages').append(div);
+        }
+    });
+
     
 
+    //On clicking send button to send a text message
     $('#sendbutton').on('click', function() {
         var message_to_send = $('#myMessage').val();
         
@@ -127,4 +192,64 @@ $(document).ready(function() {
             $('#myMessage').val('');
         }
     });
+
+
+
+    //When file is attached
+    $('#attachment').on('change', function(e){
+        const data = e.originalEvent.target.files[0];
+        console.log(data);
+        console.log("MIME Type: " + data.type);
+        console.log("Image size is: " + (data.size/1000) + "kb");
+        if(data.type.includes("image/"))
+            sendImage(data)     
+    });
+
+    
+    //For sending image
+    function sendImage(data){
+        var reader = new FileReader();
+        reader.onload = function(evt){
+            
+            //Payload being sent to the server
+            const msg = {};
+            msg.sender = localUser;
+            msg.receiver = remoteUser;
+            msg.room = room;
+            msg.file = evt.target.result;
+            msg.fileName = data.name;
+            
+            //blob url conversion
+            const url = URL.createObjectURL(data);
+
+            //adding image to div
+            var div = document.createElement("div");
+            div.setAttribute("class", "msgContainer");
+            var img = document.createElement("img");
+            img.setAttribute("class", "localImg");
+            img.src = url;
+            div.appendChild(img);
+
+            //adding dummy span for ::before pseudoelement
+            var span = document.createElement("span");
+            span.setAttribute("class", "localTextEmpty");
+            //span.innerHTML = "<b>"+messageSender+" :</b> "+messageContent;
+            div.appendChild(span);
+
+            var w,h;
+
+            //need to add onload inorder to get image width and height
+            img.onload = () => {
+                w = img.width;
+                h = img.height;
+                div.style.height = img.clientHeight+"px";
+            }
+            $('#messages').append(div);
+            
+            //emit the event
+            socket_private.emit('image file', msg);
+        };
+        //reader.readAsDataURL(data);
+        reader.readAsDataURL(data);
+    }
 });     

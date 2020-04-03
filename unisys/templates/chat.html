@@ -65,6 +65,15 @@
             <i class="material-icons">send</i>
         </button>
         <div>
+            <!--<label for="attachment">
+                <i class="material-icons">attach_file</i>
+            </label>-->
+            <input type="file" id = "attachment" name = "attachment" style="display: none;">
+            <button id ="attach_file" class = "btn info" onclick="document.getElementById('attachment').click()">
+                <i class="material-icons">attach_file</i>
+            </button>
+        </div>
+        <div>
             <input type = "checkbox" id = "autoCorrect" name="auto" style = "position: relative; top: 2px;">
             <label for="auto" style = "font-size:14px; color: white; opacity: 63%">Enable Sign to Text autocorrect?</label>
             

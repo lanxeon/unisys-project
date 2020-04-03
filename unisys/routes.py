@@ -222,6 +222,18 @@ def handle_join_or_create_room(payload):
 		print("<<SOCKET-IO[namespace: '/private']>> "+local+' has created the room '+roomVal+' with '+remote)
 		emit('joined room', (room_id, roomVal), room = roomVal, namespace = '/private')
 
+	
+@socketio.on("image file", namespace = "/private")
+def handle_image_file(payload):
+	sender = payload["sender"]
+	receiver = payload["receiver"]
+	room = payload["room"]
+	File = payload["file"]
+	fileName = payload["fileName"]
+	print("received file: " + str(File))
+	emit("image file", payload, room = room, namespace = "/private") 
+
+
 
 @socketio.on('connect')
 def handle_connect_default_namespace():
