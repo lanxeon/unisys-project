@@ -136,20 +136,51 @@ span:hover {
 }
 
 .localText{ 
+    background-color: #2196F3;
     display: inline-block;
+    border-top-right-radius: 0;
     position: absolute;
-    /*left: 35%;*/
     right: 2%;
     max-width: 62%;
     white-space: initial;
 }
 
+.localText::before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    display: block;
+    border-left: 5px solid #2196F3;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #2196F3;
+    border-bottom: 5px solid transparent;
+    position: absolute;
+    top: 0px;
+    right: -10px;
+}
+
+
 .remoteText{
     display: inline-block; 
     position: absolute;
+    border-top-left-radius: 0;
     left: 2%;
     max-width: 62%;
     white-space: initial;
+}
+
+.remoteText::before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    display: block;
+    border-left: 5px solid transparent;
+    border-right: 5px solid #4d4d4d;
+    border-top: 5px solid #4d4d4d;
+    border-bottom: 5px solid transparent;
+    position: absolute;
+    top: 0px;
+    left: -10px;
 }
 
 .btn {
