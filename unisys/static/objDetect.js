@@ -15,10 +15,16 @@ const apiServer = s.getAttribute("data-apiServer") || window.location.origin + '
 
 //Video element selector
 v = document.getElementById(sourceVideo);
+vr = document.getElementById("remoteVideo");
 
 //provide width and height of vieo depending on window size
-v.width = window.innerWidth * 0.4;
+v.width = window.innerWidth * 0.25;
 v.height = v.width * 0.5625;
+
+//for remoteVideo as well
+vr.width = window.innerWidth * 0.25;
+vr.height = vr.width * 0.5625;
+
 
 //resize video and canvas accordingly
 window.addEventListener("resize", ev => {
@@ -28,6 +34,8 @@ window.addEventListener("resize", ev => {
     if (w && h) {
       v.width = w;
       v.height = h;
+      vr.width = w;
+      vr.height = h;
       drawCanvas.width = v.width;
       drawCanvas.height = v.height;
     }

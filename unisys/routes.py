@@ -9,7 +9,6 @@ from unisys.models import User, Message_room, Message
 from PIL import Image
 from gtts import gTTS
 from sqlalchemy import or_
-#from pygame import mixer
 
 users = {}
 #rooms = []
@@ -88,13 +87,12 @@ def chat():
 		sender = current_user.usn
 		receiver = form.receiver.data
 		room = Message_room.query.filter((Message_room.roomName == sender+"&&&"+receiver)|(Message_room.roomName == receiver+"&&&"+sender)).first()
-		print(room)
+		print(str(room))
 		if room:
 			messages = room.messages
 		else:
 			messages = []
-		#messages = MessageHistory.query.filter(or_( MessageHistory.roomName == sender+"&&&"+receiver, MessageHistory.roomName == receiver+"&&&"+sender)).all()
-		print(messages)
+		print(str(messages))
 		user_connected = True
 		return render_template('chat.html', sender = sender, receiver = receiver, user_connected = user_connected, messages = messages)
 	return render_template('chat.html', form = form, user_connected = user_connected)
@@ -162,16 +160,22 @@ def webrtc2():
 
 @socketio.on('private message', namespace = '/private')
 def handle_private_msg(payload):
-	print(str(payload))
+	print("<<SOCKET-IO[namespace: '/private']>> Message Received: "+str(payload))
 	#recipient_session_id = users[payload['username']]
+
+	#Take the sender, receiver, message as well as room and roomID from the payload
 	receiver = payload['receiver']
 	message = payload['message']
 	sender = payload['sender']
 	room = payload['room']
 	roomID = payload['roomID']
+
+	#Add the message details to the specific room and commit the database
 	msgDB = Message(room_id = roomID, sender = sender, receiver = receiver, message = message)
 	db.session.add(msgDB)
 	db.session.commit()
+
+	#emit the message and sender to the receiver side in the specific room
 	emit('new private message', (message, sender), room = room, namespace = '/private')
 
 
@@ -181,7 +185,7 @@ def handle_connect():
 		username = current_user.usn
 		emit('user logged in', username, namespace = '/private')
 		users[username] = request.sid
-		print(username+' has logged in to the server with session id '+users[username])
+		print("<<SOCKET-IO[namespace: '/private']>> "+username+' has logged in to the server with session id '+users[username])
 
 
 @socketio.on('create or join room', namespace = '/private')
@@ -195,7 +199,7 @@ def handle_join_or_create_room(payload):
 	rooms = [(row.id,row.roomName,row.user1,row.user2) for row in Message_room.query.all()]
 	print(rooms)
 	for roomid, room, user1, user2 in rooms:
-		print("in for loop of 'create or join room event', room: "+room)
+		print("<<SOCKET-IO[namespace: '/private']>> In for loop of 'create or join room event', room: "+room)
 		if (user1 == local and user2 == remote) or (user1 == remote and user2 == local):
 			found = 1
 			roomVal = room
@@ -204,7 +208,7 @@ def handle_join_or_create_room(payload):
 	
 	if found == 1:
 		join_room(roomVal)
-		print(local+' has joined the room '+roomVal+' with '+remote+'(Already existed)')
+		print("<<SOCKET-IO[namespace: '/private']>> "+local+' has joined the room '+roomVal+' with '+remote+'(Already existed)')
 		emit('joined room', (room_id, roomVal), room = roomVal, namespace = '/private')
 
 	elif found == 0:
@@ -215,10 +219,10 @@ def handle_join_or_create_room(payload):
 		room_id = Message_room.query.filter_by(roomName = roomVal).first().id
 
 		join_room(roomVal)
-		print(local+' has joined the room '+roomVal+' with '+remote)
+		print("<<SOCKET-IO[namespace: '/private']>> "+local+' has created the room '+roomVal+' with '+remote)
 		emit('joined room', (room_id, roomVal), room = roomVal, namespace = '/private')
 
 
 @socketio.on('connect')
 def handle_connect_default_namespace():
-	print('default namespace is activated')
+	print("<<SOCKET-IO[namespace: Default]>> "+'Default namespace is activated')

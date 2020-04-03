@@ -36,7 +36,9 @@
 {% endif %}
 
 {% if user_connected %}
-    <video id="myVideo" autoplay></video>
+
+    <video id="localVideo" autoplay></video>
+    <video id="remoteVideo" autoplay></video>
 
     <div id="chatBar">
         <div id = "topRecv">
@@ -76,7 +78,7 @@
     </a>
 
     <script src="{{ url_for('static', filename = 'local.js')}}"></script>
-    <script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="myVideo" data-mirror="false" data-uploadWidth="640" data-scoreThreshold="0.90"></script>
+    <script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="localVideo" data-mirror="false" data-uploadWidth="640" data-scoreThreshold="0.90"></script>
 {% endif %}
 </body>
 </html>

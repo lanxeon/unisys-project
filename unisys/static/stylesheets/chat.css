@@ -13,19 +13,33 @@ div, button{
     font-family:'Raleway';
     font-size: 15px;
 }
+
+#localVideo {
+    top: 10%;
+}
+
+#remoteVideo {
+    top: 40%;
+}
+
 video {
     position: absolute;
+    /*
     top:6%;
     left:3%;
+    */
+    left: 30%;
+
     z-index: -1;
-    /*Mirror the local video */
-    transform: scale(-1, 1);            /*For Firefox (& IE) */
-    -webkit-transform: scale(-1, 1);     /*for Chrome & Opera (& Safari) */
+    transform: scale(-1, 1);        
+    -webkit-transform: scale(-1, 1);
 }
+
 canvas{
     position: absolute;
-    top: 6%;
-    left: 3%;
+    /*top: 6%;*/
+    top: 10%;
+    left: 30%;
     z-index: 1;
 }
 

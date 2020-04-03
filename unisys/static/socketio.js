@@ -21,6 +21,7 @@ window.scrollSmoothToBottom = (id) => {
 
 
 $(document).ready(function() {
+    /*
     var socket = io();
     var socket_private = io.connect('/private');
     var localUser;
@@ -28,6 +29,17 @@ $(document).ready(function() {
     var room;
     var roomID;
     ttsServer = window.location.origin+'/tts';
+    */
+
+   window.socket = io();
+   window.socket_private = io.connect('/private');
+   window.localUser;
+   window.remoteUser;
+   window.room;
+   window.roomID;
+   window.ttsServer = window.location.origin+'/tts';
+   //socketIO namespace for webrtc video chat 
+   window.socket_video = io.connect('/video');
 
 
     //script for autplaying audio element on first load
