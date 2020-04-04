@@ -1,13 +1,15 @@
+
 body{
-    background-color: /*#1b262c*/#121212;
+    background-color: #121212;
+    height: 100%;
+    margin: 0;
 }
 
 html{
 
     height: 100%;
     background-size: cover;
-    /*background: url("https://srv4.imgonline.com.ua/result_img/imgonline-com-ua-Resize-L0tBlPdXiUEl.jpg") no-repeat center center fixed;
-*/}
+}
 
 div, button{
     font-family:'Raleway';
@@ -43,27 +45,15 @@ canvas{
     z-index: 1;
 }
 
-#msgBar {
-    position: absolute;
-    /* left: 57%; */
-    right: 5px;
-    width: 40%;
-    background-color: #262626;
-    top: 68%;
-    border-radius: 5px;
-    padding: 10px;
-}
-
 #chatBar {
     position: absolute;
     /* left: 57%; */
-    right: 5px;
-    width: 40%;
-    height: 58%;  
-    padding: 10px;
-    margin-bottom: 15px;
-    top: 6%;
-    border-radius: 5px;
+    /* height: 80%;   */
+    top: 0;
+    right: 0;
+    width: 45vw;
+    height: 100vh;
+    padding:  0 10px 0 10px;
     background-color: #262626;
     overflow: auto;
     /* Hide scrollbar */
@@ -72,7 +62,21 @@ canvas{
     overflow-x: visible;
 }
 
-/*
+
+#msgBar {
+    position: absolute;
+    /* left: 57%;
+    top: 85%; */
+    height: 10vh;
+    right: 0;
+    bottom: 0;
+    width: 45vw;
+    background-color: #262626;
+    /* border-radius: 5px; */
+    padding: 10px;
+}
+
+
 input {
     font-size: 18px; 
     border-radius: 5px; 
@@ -81,7 +85,7 @@ input {
     color: white;
     opacity: 87%;
 }
-*/
+
 
 label {
     font-size: 18px;
@@ -194,7 +198,7 @@ span:hover {
     right: -10px;
 }
 
-.remoteText{
+.remoteText {
     display: inline-block; 
     position: absolute;
     border-top-left-radius: 0;
@@ -264,24 +268,37 @@ span:hover {
 
 .send {
     cursor: pointer;
-    border-radius: 50%;
-    position: absolute; 
-    left: 84%; 
-    top: 35%; 
-    width: 10%;
+    border-radius: 5px;
+    padding: 4.5px 0;
+    position: absolute;
+    right: 2%;  
+    width: 5%;
 }
 
 .gestureHelp {
     position:absolute; 
-    left:22%; 
+    left: 22%; 
     top: 75%;
     width: 12%; 
     border-radius: 7px;
     padding: 6px;
 }
 
+.attach {
+    /* transform: rotate(90deg); */
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px 0;
+    position: absolute;
+    left: 2%;  
+    width: 5%;
+    top: 13%;
+}
+
 textarea {
-    /*position: relative;*/
+    position: relative;
+    /*position: absolute;*/
+    padding: 8px 2px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -289,13 +306,15 @@ textarea {
     background-color: #4d4d4d;
     color: white;
     opacity: 87%;
-    width: 80%;
+    width: 85%;
+    /* margin-left: 6%; */
+    right: -7%;
 }
 
 #myMessage {
     resize: none; 
     font-family:'Raleway'; 
-    font-size: 18px;
+    font-size: 16px;
 }
 
 button:focus{

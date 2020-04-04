@@ -43,8 +43,11 @@ window.b64toBlob = (b64Data, contentType='', sliceSize=512) => {
 };
 
 
+
 //For loading up image
 window.appendImage = (filedata, messageClass) => {
+
+    var messages = $(".msgContainer");
     //making a new XHR for getting the specified image
     var request = new XMLHttpRequest();
     request.open('GET', filedata, true);
@@ -61,13 +64,6 @@ window.appendImage = (filedata, messageClass) => {
         div.setAttribute("class", "msgContainer");
         var img = document.createElement("img");
         img.setAttribute("class", messageClass);
-        img.src = url;
-        div.appendChild(img);
-
-        //adding dummy span for ::before pseudoelement
-        var span = document.createElement("span");
-        span.setAttribute("class", "localTextEmpty");
-        div.appendChild(span);
 
         var w,h;
 
@@ -77,7 +73,26 @@ window.appendImage = (filedata, messageClass) => {
             h = img.height;
             div.style.height = img.clientHeight+"px";
         }
-        $('#messages').append(div);
+
+        img.src = url;
+        div.appendChild(img);
+
+        let dummyClass;
+        if(messageClass.includes("local"))
+            dummyClass = "localTextEmpty"
+        else dummyClass = "remoteTextEmpty";
+
+        //adding dummy span for ::before pseudoelement
+        var span = document.createElement("span");
+        span.setAttribute("class", dummyClass);
+        div.appendChild(span);
+
+
+        $("#messages").append(div);
+        //$(".localImg").first().parent().insertAfter($(".msgContainer").first());
+        //$(".localImg").first().parent().insertAfter(messages);
+        //div.insertAfter(messages.last());
+        $(".msgContainer").last().insertAfter(messages.last());
     };
     request.send();
 };
@@ -85,6 +100,8 @@ window.appendImage = (filedata, messageClass) => {
 
 
 $(document).ready(function() {
+
+    console.log("document is considered ready");
   
    window.socket = io(); //default namespace
    window.socket_private = io.connect('/private');
