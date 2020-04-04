@@ -43,6 +43,46 @@ window.b64toBlob = (b64Data, contentType='', sliceSize=512) => {
 };
 
 
+//For loading up image
+window.appendImage = (filedata, messageClass) => {
+    //making a new XHR for getting the specified image
+    var request = new XMLHttpRequest();
+    request.open('GET', filedata, true);
+    request.responseType = 'blob';
+
+    request.onload = function() {
+        const data = request.response;
+
+        //blob url conversion
+        const url = URL.createObjectURL(data);
+
+        //adding image to div
+        var div = document.createElement("div");
+        div.setAttribute("class", "msgContainer");
+        var img = document.createElement("img");
+        img.setAttribute("class", messageClass);
+        img.src = url;
+        div.appendChild(img);
+
+        //adding dummy span for ::before pseudoelement
+        var span = document.createElement("span");
+        span.setAttribute("class", "localTextEmpty");
+        div.appendChild(span);
+
+        var w,h;
+
+        //need to add onload inorder to get image width and height
+        img.onload = () => {
+            w = img.width;
+            h = img.height;
+            div.style.height = img.clientHeight+"px";
+        }
+        $('#messages').append(div);
+    };
+    request.send();
+};
+
+
 
 $(document).ready(function() {
   
@@ -136,16 +176,17 @@ $(document).ready(function() {
         {
             const file = payload.file;
             const fileName = payload.fileName;
+            //console.log(fileName);
 
             //extract the pure base 64 sting and contentType
             const fileDecoded = file.slice(file.indexOf(",")+1,file.length);
-            const contentType = file.slice(file.indexOf("image/")+1,file.indexOf(";")+1);
+            const contentType = file.slice(file.indexOf("image/"),file.indexOf(";")+1);
 
-            const blob = b64toBlob(fileDecoded, contentType);
-            //const blobUrl = URL.createObjectURL(blob);
+            const blob = b64toBlob(fileDecoded, contentType); //Convert base 64 to blob array
+            const fileForUrlConversion = new File([blob], fileName, {type: contentType}); //Convert blob into file object
 
-            //blob url conversion
-            const url = URL.createObjectURL(blob);
+            //File url conversion
+            const url = URL.createObjectURL(fileForUrlConversion);
 
             //adding image to div
             var div = document.createElement("div");
@@ -187,7 +228,15 @@ $(document).ready(function() {
             appendMessage("localText", localUser, message_to_send);
             scrollSmoothToBottom("messages");
 
-            socket_private.emit('private message', {'receiver' : remoteUser, 'message' : message_to_send, 'sender' : localUser, 'room': room , 'roomID': roomID});
+            const message = {
+                                'receiver' : remoteUser, 
+                                'message' : message_to_send, 
+                                'sender' : localUser, 
+                                'room': room , 
+                                'roomID': roomID
+                            };
+
+            socket_private.emit('private message', message);
             console.log('message sent to: '+remoteUser);
             $('#myMessage').val('');
         }
@@ -216,6 +265,7 @@ $(document).ready(function() {
             msg.sender = localUser;
             msg.receiver = remoteUser;
             msg.room = room;
+            msg.roomID = roomID;
             msg.file = evt.target.result;
             msg.fileName = data.name;
             

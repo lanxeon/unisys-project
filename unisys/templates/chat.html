@@ -48,11 +48,16 @@
             <script type="application/javascript">
                 {% for message in messages %}
                     {% if message.sender == sender %}
-                        appendMessage("localText","{{ message.sender|safe }}", "{{ message.message|safe }}");
+                        {% if message.messageType == "image" %}
+                            appendImage("{{message.message|safe}}", conversionNeeded = true, sender = "{{message.sender|safe}}");
+                        {% elif message.messageType == "regularTextMessage" %}
+                            appendMessage("localText","{{ message.sender|safe }}", "{{ message.message|safe }}");
+                        {% endif %}
                     {% else %}
                         appendMessage("remoteText","{{ message.sender|safe }}", "{{ message.message|safe }}");
                     {% endif %}
                 {% endfor %}
+
                 scrollSmoothToBottom("messages");
             </script>
         </div>

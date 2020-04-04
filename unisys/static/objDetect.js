@@ -28,7 +28,7 @@ vr.height = vr.width * 0.5625;
 
 //resize video and canvas accordingly
 window.addEventListener("resize", ev => {
-    let w = window.innerWidth * 0.4;
+    let w = window.innerWidth * 0.25;
     let h = w * 0.5625;
   
     if (w && h) {

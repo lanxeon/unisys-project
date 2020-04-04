@@ -33,8 +33,9 @@ class Message(db.Model):
     sender = db.Column(db.String(50), nullable = False)
     receiver = db.Column(db.String(50), nullable = False)
     message = db.Column(db.Text, nullable = False)
+    messageType = db.Column(db.String(50), default = "regularTextMessage")
     room_id = db.Column(db.Integer, db.ForeignKey('message_room.id'), nullable=False)
 
     def __repr__(self):
-        return f"Messages( sender: '{self.sender}'), receiver: '{self.receiver}' )"
+        return f"Messages( sender: '{self.sender}'), receiver: '{self.receiver}', messageType: '{self.messageType}')"
 

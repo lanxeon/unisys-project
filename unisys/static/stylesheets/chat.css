@@ -45,8 +45,9 @@ canvas{
 
 #msgBar {
     position: absolute;
-    left: 57%;
-    width: 39%;
+    /* left: 57%; */
+    right: 5px;
+    width: 40%;
     background-color: #262626;
     top: 68%;
     border-radius: 5px;
@@ -55,8 +56,9 @@ canvas{
 
 #chatBar {
     position: absolute;
-    left: 57%;
-    width: 39%;
+    /* left: 57%; */
+    right: 5px;
+    width: 40%;
     height: 58%;  
     padding: 10px;
     margin-bottom: 15px;

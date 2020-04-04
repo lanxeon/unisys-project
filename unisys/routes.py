@@ -9,6 +9,8 @@ from unisys.models import User, Message_room, Message
 from PIL import Image
 from gtts import gTTS
 from sqlalchemy import or_
+import uuid
+import base64
 
 users = {}
 #rooms = []
@@ -228,9 +230,25 @@ def handle_image_file(payload):
 	sender = payload["sender"]
 	receiver = payload["receiver"]
 	room = payload["room"]
+	roomID = payload['roomID']
 	File = payload["file"]
 	fileName = payload["fileName"]
-	print("received file: " + str(File))
+
+	imgFolderId = uuid.uuid4().hex
+	imgdata = base64.b64decode(File[File.find(",")+1:len(File)])  
+
+	os.mkdir("unisys/static/images/chatImages/"+imgFolderId)
+	
+	with open("./unisys/static/images/"+"/chatImages/"+imgFolderId+"/"+ fileName, 'wb') as f:
+		f.write(imgdata)
+
+	finalDir = "images"+"/chatImages/"+imgFolderId+"/"+fileName
+
+	#Add the message details to the specific room and commit the database
+	msgDB = Message(room_id = roomID, sender = sender, receiver = receiver, message = url_for("static", filename = finalDir), messageType = "image")
+	db.session.add(msgDB)
+	db.session.commit()
+		
 	emit("image file", payload, room = room, namespace = "/private") 
 
 
