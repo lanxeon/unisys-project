@@ -10,7 +10,19 @@ window.appendMessage = (messageClass, messageSender, messageContent) => {
 
     $('#messages').append(div);
     div.style.height = span.clientHeight+"px";
-    //scrollSmoothToBottom("messages");
+};
+
+//Below could be some possibly useful code
+window.resizeMessages = () => {
+    var messageDivs = document.getElementsByClassName("msgContainer")
+    var l = messageDivs.length;
+    for(let i=0; i<l; i++)
+    {
+        let md = messageDivs[0];
+        let child = md.childNodes[0];
+        console.log(md.childNodes[0].clientHeight);
+        md.style.height = child.offsetHeight+"px";
+    }
 };
 
 
@@ -100,8 +112,7 @@ window.appendImage = (filedata, messageClass) => {
 
 
 $(document).ready(function() {
-
-    console.log("document is considered ready");
+console.log("document is considered ready");
   
    window.socket = io(); //default namespace
    window.socket_private = io.connect('/private');

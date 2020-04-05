@@ -26,12 +26,7 @@ div, button{
 
 video {
     position: absolute;
-    /*
-    top:6%;
-    left:3%;
-    */
     left: 30%;
-
     z-index: -1;
     transform: scale(-1, 1);        
     -webkit-transform: scale(-1, 1);
@@ -39,7 +34,6 @@ video {
 
 canvas{
     position: absolute;
-    /*top: 6%;*/
     top: 10%;
     left: 30%;
     z-index: 1;
@@ -47,13 +41,11 @@ canvas{
 
 #chatBar {
     position: absolute;
-    /* left: 57%; */
-    /* height: 80%;   */
     top: 0;
     right: 0;
     width: 45vw;
     height: 100vh;
-    padding:  0 10px 0 10px;
+    padding: 0;
     background-color: #262626;
     overflow: auto;
     /* Hide scrollbar */
@@ -64,16 +56,9 @@ canvas{
 
 
 #msgBar {
-    position: absolute;
-    /* left: 57%;
-    top: 85%; */
-    height: 10vh;
-    right: 0;
-    bottom: 0;
-    width: 45vw;
-    background-color: #262626;
-    /* border-radius: 5px; */
-    padding: 10px;
+    position: relative;
+    width: 100%; 
+    height: 10%;
 }
 
 
@@ -95,34 +80,28 @@ label {
 
 #topRecv {
     background-color: #2196F3;
-    position: absolute;
-    height: 3.5%;
-    left: 0; 
-    top: 0; 
+    position: relative;
+    height: 5%;
     width: 100%; 
     text-align: center; 
     color: white;
     opacity: 87%;
-    margin-top: 0px;
-    padding-top: 2.4%;
-    padding-bottom: 2.4%;
 }
 
 #topRecvContent{
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     font-size: large;
 }
 
 #messages {
     position: relative;
     overflow: auto;
-    top: 10%;
-    height: 85%; 
-    margin-bottom: 1%;
-    margin-top: 1%;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    height: 85%;
 }
 
 .msgContainer {
@@ -267,12 +246,12 @@ span:hover {
 .success:hover {background-color: #46a049; }
 
 .send {
+    position: relative;
     cursor: pointer;
     border-radius: 5px;
     padding: 4.5px 0;
-    position: absolute;
-    right: 2%;  
     width: 5%;
+    left: 3%;
 }
 
 .gestureHelp {
@@ -286,18 +265,16 @@ span:hover {
 
 .attach {
     /* transform: rotate(90deg); */
+    position: relative;
     cursor: pointer;
+    width: 5%;
     border-radius: 5px;
     padding: 5px 0;
-    position: absolute;
-    left: 2%;  
-    width: 5%;
-    top: 13%;
+    left: 1%;
 }
 
 textarea {
     position: relative;
-    /*position: absolute;*/
     padding: 8px 2px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -307,8 +284,7 @@ textarea {
     color: white;
     opacity: 87%;
     width: 85%;
-    /* margin-left: 6%; */
-    right: -7%;
+    left: 2%;
 }
 
 #myMessage {
@@ -384,4 +360,11 @@ button:focus{
     }
 }
 
-  
+
+.flexbox {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    top: 5%;
+    border: 1px solid blanchedalmond;
+}

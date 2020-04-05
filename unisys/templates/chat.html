@@ -64,8 +64,26 @@
 
 
                 scrollSmoothToBottom("messages");
-                console.log("This is the last of that script");
             </script>
+        </div>
+        <div id = "msgBar">
+            <div class = "flexbox">
+                    <input type="file" id = "attachment" name = "attachment" style="display: none;">
+                    <button id ="attach_file" class = "btn info attach" onclick="document.getElementById('attachment').click()">
+                        <i class="material-icons">attach_file</i>
+                    </button>
+                <textarea rows ="1" cols="50" id="myMessage" placeholder="Type or gesture a message" ></textarea>
+                <button id="sendbutton" class="btn info send">
+                    <i class="material-icons">send</i>
+                </button>
+            </div>
+            <div>
+                <input type = "checkbox" id = "autoCorrect" name="auto" style = "position: relative; top: 2px;">
+                <label for="auto" style = "font-size:14px; color: white; opacity: 63%">Enable Sign to Text autocorrect?</label>
+                
+                <input type = "checkbox" id = "tts" name="tts" style = "position: relative; top: 2px;">
+                <label for="auto" style = "font-size:14px; color: white; opacity: 63%">Enable Text-To-Speech?</label>
+            </div>
         </div>
     </div>
 
