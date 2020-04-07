@@ -17,7 +17,19 @@ navigator.mediaDevices.getUserMedia(constraints)
     })
     .catch(err => {
         console.log('navigator.getUserMedia error: ', err);
+        // console.log("Gonna play default video then");
+        // const vid = document.getElementById("localVideo");
+        // vid.muted = true;
+        // vid.loop = true;
+        // vid.src = window.location.origin+"/static/images/static.mp4";  
     });
+
+    // const vid = document.getElementById;
+    // if(vid.src === undefined){
+    //     vid.muted = true;
+    //     vid.loop = true;
+    //     vid.src = window.location.origin+"/static/images/static.mp4";
+    // };
 
 
 //variables required for webrtc

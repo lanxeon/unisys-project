@@ -2,7 +2,9 @@
 body{
     background-color: #121212;
     height: 100%;
+    width: 100%;
     margin: 0;
+    padding: 0;
 }
 
 html{
@@ -13,34 +15,59 @@ html{
 
 div, button{
     font-family:'Raleway';
-    font-size: 15px;
+    /* font-size: 15px; */
 }
 
-#localVideo {
+/* #localVideo {
     top: 10%;
 }
 
 #remoteVideo {
     top: 40%;
-}
+} */
 
 video {
-    position: absolute;
-    left: 30%;
+    margin-bottom: 10px;
     z-index: -1;
     transform: scale(-1, 1);        
     -webkit-transform: scale(-1, 1);
+    background-color: black;
 }
 
 canvas{
     position: absolute;
-    top: 10%;
-    left: 30%;
+    display: none;
     z-index: 1;
+    /* top: 10%;
+    left: 30%; */
+}
+
+
+#middle {
+    position: absolute;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    width: 35vw;
+    top: 0;
+    left: 20vw;
+    overflow: auto;
+    flex-wrap: nowrap;
+}
+
+#videos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* align-items: center; */
 }
 
 #chatBar {
     position: absolute;
+    box-sizing: border-box;
     top: 0;
     right: 0;
     width: 45vw;
@@ -48,6 +75,8 @@ canvas{
     padding: 0;
     background-color: #262626;
     overflow: auto;
+    border-left: solid 5px #1a1a1a;
+    border-right: solid 5px #1a1a1a;
     /* Hide scrollbar */
     -ms-overflow-style: none; /* IE 11 */
     scrollbar-width: none; /* Firefox 64 */
@@ -59,27 +88,48 @@ canvas{
     position: relative;
     width: 100%; 
     height: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    background-color: #1a1a1a;
 }
 
 
-input {
+/* input {
     font-size: 18px; 
     border-radius: 5px; 
     border: 1px solid #4d4d4d;
     background-color: #4d4d4d;
     color: white;
     opacity: 87%;
+} */
+
+
+input {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
 }
 
 
 label {
-    font-size: 18px;
+    /* font-size: 18px; */
     color: white;
     opacity: 87%;
+    display: block;
+    padding-left: 15px;
+    /* text-indent: -15px; */
 }
 
 #topRecv {
-    background-color: #2196F3;
+    /* background-color: #2196F3; */
+    background-color: #1a1a1a;
     position: relative;
     height: 5%;
     width: 100%; 
@@ -249,48 +299,66 @@ span:hover {
     position: relative;
     cursor: pointer;
     border-radius: 5px;
-    padding: 4.5px 0;
-    width: 5%;
-    left: 3%;
+    padding: 0 0.25em;
+    /* padding: 4.5px 0; */
+    /* width: 5%; */
+    /* left: 3%; */
 }
 
 .gestureHelp {
-    position:absolute; 
-    left: 22%; 
-    top: 75%;
-    width: 12%; 
-    border-radius: 7px;
-    padding: 6px;
+    border-radius: 5px;
+    padding: 7px;
 }
 
 .attach {
     /* transform: rotate(90deg); */
     position: relative;
     cursor: pointer;
-    width: 5%;
+    /* width: 5%; */
     border-radius: 5px;
-    padding: 5px 0;
-    left: 1%;
+    padding: 0 0.25em;
+    /* padding: 5px 0; */
+    /* left: 1%; */
 }
 
-textarea {
+.flexbox {
     position: relative;
-    padding: 8px 2px;
+    display: flex;
+    flex-direction: row;
+    /* top: 5%; */
+    /* border: 2px solid blanchedalmond;
+    border-radius: 10px; */
+    /* padding: 1px 0; */
+    justify-content: space-evenly;
+}
+
+.flex-checkboxes {
+    border: none;
+    justify-content: start;
+}
+
+
+textarea {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    border: 1px solid #4d4d4d;
-    background-color: #4d4d4d;
-    color: white;
-    opacity: 87%;
-    width: 85%;
-    left: 2%;
+    resize: none; 
+    font-family:'Raleway'; 
 }
 
 #myMessage {
-    resize: none; 
-    font-family:'Raleway'; 
+    border: 0.25em solid #4d4d4d;
+    background-color: #4d4d4d;
+    color: white;
+    opacity: 87%;
     font-size: 16px;
+    width: 88%;
+    padding: 0.25em;
+    overflow-x: hidden;
+    /* width: 85%; */
+    /* left: 2%; */
+    /* position: relative; */
+    /* padding: 3px 2px; */
 }
 
 button:focus{
@@ -331,6 +399,9 @@ button:focus{
     display: none;
    }
 
+
+
+/* MEDIA QUERY STUFF */
    @media only screen and (max-height: 550px) {
        
     #topRecvContent {
@@ -358,13 +429,4 @@ button:focus{
      padding: 0px;
      font-size: small;
     }
-}
-
-
-.flexbox {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    top: 5%;
-    border: 1px solid blanchedalmond;
 }

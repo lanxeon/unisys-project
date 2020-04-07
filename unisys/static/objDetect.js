@@ -14,8 +14,8 @@ const scoreThreshold = s.getAttribute("data-scoreThreshold") || 0.5;
 const apiServer = s.getAttribute("data-apiServer") || window.location.origin + '/image'; //the full TensorFlow Object Detection API server url
 
 //Video element selector
-v = document.getElementById(sourceVideo);
-vr = document.getElementById("remoteVideo");
+v = document.getElementById(sourceVideo); //local
+vr = document.getElementById("remoteVideo"); //remote
 
 //provide width and height of vieo depending on window size
 v.width = window.innerWidth * 0.25;
@@ -29,6 +29,7 @@ vr.height = vr.width * 0.5625;
 //resize video and canvas accordingly
 window.addEventListener("resize", ev => {
     let w = window.innerWidth * 0.25;
+    console.log(window.innerWidth);
     let h = w * 0.5625;
   
     if (w && h) {
@@ -39,6 +40,8 @@ window.addEventListener("resize", ev => {
       drawCanvas.width = v.width;
       drawCanvas.height = v.height;
     }
+
+    resizeMessages();
   }, false);
 
 //for starting events
@@ -54,6 +57,9 @@ let imageCtx = imageCanvas.getContext("2d");
 //create a canvas for drawing object boundaries
 let drawCanvas = document.createElement('canvas');
 document.body.appendChild(drawCanvas);
+//for canvas
+drawCanvas.width = v.width;
+drawCanvas.height = v.height;
 let drawCtx = drawCanvas.getContext("2d");
 
 //draw boxes and labels on each detected object

@@ -36,10 +36,17 @@
 {% endif %}
 
 {% if user_connected %}
-
-    <video id="localVideo" autoplay></video>
-    <video id="remoteVideo" autoplay></video>
-
+    <div id="middle">
+        <div id = "videos">
+            <video id="localVideo" autoplay></video>
+            <video id="remoteVideo" autoplay></video>
+        </div>
+        <div id = "gestureHelpBtn">
+            <a href ="{{ url_for('signs') }}" target="_blank">
+                <button class="btn success gestureHelp">Need help with gestures?</button>
+            </a>
+        </div>
+    </div>
     <div id="chatBar">
         <div id = "topRecv">
             <p id="topRecvContent">{{ receiver }}</p>
@@ -61,9 +68,6 @@
                         {% endif %}
                     {% endif %}
                 {% endfor %}
-
-
-                scrollSmoothToBottom("messages");
             </script>
         </div>
         <div id = "msgBar">
@@ -77,39 +81,17 @@
                     <i class="material-icons">send</i>
                 </button>
             </div>
-            <div>
-                <input type = "checkbox" id = "autoCorrect" name="auto" style = "position: relative; top: 2px;">
-                <label for="auto" style = "font-size:14px; color: white; opacity: 63%">Enable Sign to Text autocorrect?</label>
+            <div class="flexbox flex-checkboxes">
+                <label style = "font-size:14px; color: white; opacity: 63%">
+                    <input type = "checkbox" id = "autoCorrect" name="auto">Enable Sign to Text autocorrect?
+                </label>
                 
-                <input type = "checkbox" id = "tts" name="tts" style = "position: relative; top: 2px;">
-                <label for="auto" style = "font-size:14px; color: white; opacity: 63%">Enable Text-To-Speech?</label>
+                <label style = "font-size:14px; color: white; opacity: 63%">
+                    <input type = "checkbox" id = "tts" name="tts" style="opacity: 100%;"/>Enable Text-To-Speech?
+                </label>
             </div>
         </div>
     </div>
-
-    <!-- <div id = "msgBar">
-        <textarea rows ="1" cols="50" id="myMessage" placeholder="Type or gesture a message" ></textarea>
-        <button id="sendbutton" class="btn info send">
-            <i class="material-icons">send</i>
-        </button>
-        <div style = "width: fit-content;">
-            <input type="file" id = "attachment" name = "attachment" style="display: none;">
-            <button id ="attach_file" class = "btn info attach" onclick="document.getElementById('attachment').click()">
-                <i class="material-icons">attach_file</i>
-            </button>
-        </div>
-        <div>
-            <input type = "checkbox" id = "autoCorrect" name="auto" style = "position: relative; top: 2px;">
-            <label for="auto" style = "font-size:14px; color: white; opacity: 63%">Enable Sign to Text autocorrect?</label>
-            
-            <input type = "checkbox" id = "tts" name="tts" style = "position: relative; top: 2px;">
-            <label for="auto" style = "font-size:14px; color: white; opacity: 63%">Enable Text-To-Speech?</label>
-        </div>
-    </div> -->
-
-    <a href ="{{ url_for('signs') }}" target="_blank">
-        <button class="btn success gestureHelp">Need help with gestures?</button>
-    </a>
 
     <script src="{{ url_for('static', filename = 'local.js')}}"></script>
     <script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="localVideo" data-mirror="false" data-uploadWidth="640" data-scoreThreshold="0.90"></script>

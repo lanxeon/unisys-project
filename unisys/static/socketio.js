@@ -18,7 +18,7 @@ window.resizeMessages = () => {
     var l = messageDivs.length;
     for(let i=0; i<l; i++)
     {
-        let md = messageDivs[0];
+        let md = messageDivs[i];
         let child = md.childNodes[0];
         console.log(md.childNodes[0].clientHeight);
         md.style.height = child.offsetHeight+"px";
@@ -101,10 +101,8 @@ window.appendImage = (filedata, messageClass) => {
 
 
         $("#messages").append(div);
-        //$(".localImg").first().parent().insertAfter($(".msgContainer").first());
-        //$(".localImg").first().parent().insertAfter(messages);
-        //div.insertAfter(messages.last());
         $(".msgContainer").last().insertAfter(messages.last());
+        // scrollSmoothToBottom("messages");
     };
     request.send();
 };
@@ -112,16 +110,15 @@ window.appendImage = (filedata, messageClass) => {
 
 
 $(document).ready(function() {
-console.log("document is considered ready");
   
-   window.socket = io(); //default namespace
-   window.socket_private = io.connect('/private');
-   window.localUser;
-   window.remoteUser;
-   window.room;
-   window.roomID;
-   window.ttsServer = window.location.origin+'/tts'; 
-   window.socket_video = io.connect('/video'); //socketIO namespace for webrtc video chat
+    window.socket = io(); //default namespace
+    window.socket_private = io.connect('/private');
+    window.localUser;
+    window.remoteUser;
+    window.room;
+    window.roomID;
+    window.ttsServer = window.location.origin+'/tts'; 
+    window.socket_video = io.connect('/video'); //socketIO namespace for webrtc video chat
 
 
     //script for autplaying audio element on first load
