@@ -29,11 +29,14 @@
     <script src = "{{ url_for('static', filename='socketIO.js') }}"></script>
 
 {% if user_connected==False %}
-    <form action = "" method="POST">
-        {{ form.hidden_tag() }}
-        {{form.receiver.label}} {{form.receiver}} &nbsp; {{ form.submitRecv }}
-    </form>
+    <!-- <form action = "" method="POST">
+        \{\{\ form.hidden_tag() \}\}\
+        \{\{\form.receiver.label\}\}\ \{\{\form.receiver\}\}\ &nbsp; \{\{\ form.submitRecv \}\}\
+    </form> -->
 {% endif %}
+<div id = "left">
+    <form action="" method="POST" id="navbarForm" style="display: none;"></form> 
+</div>
 
 {% if user_connected %}
     <div id="middle">
@@ -93,8 +96,9 @@
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename = 'local.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'local.js') }}"></script>
     <script id="objDetect" src="{{ url_for('static', filename = 'objDetect.js')}}" data-source="localVideo" data-mirror="false" data-uploadWidth="640" data-scoreThreshold="0.90"></script>
 {% endif %}
+<script src = "{{ url_for('static', filename = 'navbar.js') }}"></script>
 </body>
 </html>

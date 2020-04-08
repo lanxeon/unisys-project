@@ -6,9 +6,9 @@
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <fieldset class="form-group" align='center' style="color:white">
+            <fieldset class="form-group" align='center' style="color:black">
                 <legend class="border-bottom mb-4 h2" align='center'>Register Today!</legend>
-                <div class="form-group h5" style="color:white">
+                <div class="form-group h5" style="color:black">
                     {{ form.fname.label(class="form-control-label") }}
 
                     {% if form.fname.errors %}
@@ -22,7 +22,7 @@
                         {{ form.fname(class="form-control-sm") }}
                     {% endif %}
                 </div>
-                <div class="form-group h5" style="color:white">
+                <div class="form-group h5" style="color:black">
                     {{ form.lname.label(class="form-control-label") }}
 
                     {% if form.lname.errors %}
@@ -36,7 +36,7 @@
                         {{ form.lname(class="form-control-sm") }}
                     {% endif %}
                 </div>
-                <div class="form-group h5" style="color:white">
+                <div class="form-group h5" style="color:black">
                     {{ form.usn.label(class="form-control-label") }}
 
                     {% if form.usn.errors %}
@@ -50,7 +50,7 @@
                         {{ form.usn(class="form-control-sm") }}
                     {% endif %}
                 </div>
-                <div class="form-group h5" style="color:white">
+                <div class="form-group h5" style="color:black">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -63,7 +63,7 @@
                         {{ form.email(class="form-control-sm") }}
                     {% endif %}
                 </div>
-                <div class="form-group h5"style="color:white">
+                <div class="form-group h5"style="color:black">
                     {{ form.pwd.label(class="form-control-label") }}
                     {% if form.pwd.errors %}
                         {{ form.pwd(class="form-control form-control-lg is-invalid") }}
@@ -76,7 +76,7 @@
                         {{ form.pwd(class="form-control-sm") }}
                     {% endif %}
                 </div>
-                <div class="form-group h5" style="color:white">
+                <div class="form-group h5" style="color:black">
                     {{ form.repwd.label(class="form-control-label") }}
                     {% if form.repwd.errors %}
                         {{ form.repwd(class="form-control form-control-lg is-invalid") }}

@@ -4,13 +4,14 @@ from flask_login import login_user, current_user, logout_user, login_required
 from flask_socketio import send, emit, join_room, leave_room
 import os
 import unisys.Object_detection_webcam as objDetApi
-from unisys.forms import Registration, Login, Chat
+from unisys.forms import Registration, Login
 from unisys.models import User, Message_room, Message
 from PIL import Image
 from gtts import gTTS
 from sqlalchemy import or_
 import uuid
 import base64
+import json
 
 users = {}
 #rooms = []
@@ -82,12 +83,15 @@ def logout():
 @app.route('/chat', methods = ['GET', 'POST'])
 @login_required
 def chat():
-	form = Chat()
+	#form = Chat()
 	user_connected = False
-	if form.validate_on_submit():
-		print("hey, form validated")
+	#if form.validate_on_submit():
+	if request.method == "POST":
+		print("[/chat] => POST from the XHR")
 		sender = current_user.usn
-		receiver = form.receiver.data
+		# receiver = form.receiver.data
+		receiver = request.form["receiver"]
+		print(receiver)
 		room = Message_room.query.filter((Message_room.roomName == sender+"&&&"+receiver)|(Message_room.roomName == receiver+"&&&"+sender)).first()
 		print(str(room))
 		if room:
@@ -96,8 +100,23 @@ def chat():
 			messages = []
 		print(str(messages))
 		user_connected = True
+		print(user_connected)
 		return render_template('chat.html', sender = sender, receiver = receiver, user_connected = user_connected, messages = messages)
-	return render_template('chat.html', form = form, user_connected = user_connected)
+	return render_template('chat.html', user_connected = user_connected)
+
+
+@app.route('/getUsers', methods = ['GET'])
+def getUsers():
+	users = User.query.all()
+	usernames = [user.usn for user in users]
+	print("[/getUsers] => "+str(usernames))
+	# print("[/getUsers] => "+str(users))
+	# users_json = json.dumps([user.__dict__ for user in users])
+	result = {"usernames": usernames}
+	resultJSON = json.dumps(result)
+	return resultJSON
+	
+	 
 
 
 @app.route('/account')

@@ -30,13 +30,13 @@ class Login(FlaskForm):
 	submit=SubmitField('Log in')
 
 
-class Chat(FlaskForm):
-	receiver = StringField('Receiver :', validators = [DataRequired()])
-	submitRecv = SubmitField('Connect!')
+# class Chat(FlaskForm):
+# 	receiver = StringField('Receiver :', validators = [DataRequired()])
+# 	submitRecv = SubmitField('Connect!')
 
-	def validate_receiver(self, receiver):
-		rcvr = User.query.filter_by(usn = receiver.data).first()
-		if rcvr:
-			pass
-		else:
-			raise ValidationError('Invalid receiver')
+# 	def validate_receiver(self, receiver):
+# 		rcvr = User.query.filter_by(usn = receiver.data).first()
+# 		if rcvr:
+# 			pass
+# 		else:
+# 			raise ValidationError('Invalid receiver')
