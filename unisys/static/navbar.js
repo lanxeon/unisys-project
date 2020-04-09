@@ -13,14 +13,21 @@ xhr.onload = function () {
             button.innerHTML = element;
             button.onclick = () => {
                 console.log("clicked for user:"+element);
+                //input to submit for post
                 let input = document.createElement("input");
                 input.type = "hidden";
                 input.name = "receiver";
                 input.value = element;
+                //submit it
                 $("#navbarForm").append(input);
                 $("#navbarForm").submit();
             }
-            $("#left").append(button);
+            //div for containing the button and other stuff
+            let div = document.createElement("div");
+            div.setAttribute("class", "usrBtnCon");
+            div.appendChild(button);
+
+            $("#left").append(div);
         });
 
         console.log(objects);

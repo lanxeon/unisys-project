@@ -48,7 +48,8 @@ canvas{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background-color: cornflowerblue;
+    background-color: #1a1a1a;
+    border: 5px solid #1a1a1a;
     align-items: center;
     height: 100vh;
     width: 20vw;
@@ -56,6 +57,15 @@ canvas{
     left: 0;
     overflow: auto;
     flex-wrap: nowrap;
+}
+
+.usrBtnCon {
+    height: 10%;
+}
+
+div.usrBtnCon button {
+    background-color: aqua;
+    color: aliceblue;
 }
 
 
