@@ -108,13 +108,13 @@ window.appendImage = (filedata, messageClass) => {
 };
 
 
-
+window.remoteUser = "404_ERR_NOT_FOUND";
 $(document).ready(function() {
   
     window.socket = io(); //default namespace
     window.socket_private = io.connect('/private');
     window.localUser;
-    window.remoteUser;
+    // window.remoteUser = "404_ERR_NOT_FOUND";
     window.room;
     window.roomID;
     window.ttsServer = window.location.origin+'/tts'; 
@@ -131,6 +131,7 @@ $(document).ready(function() {
     //for finding the remoteUser once form is submitted
     remoteUser = $("#topRecvContent").text();
     console.log("the remote user is: "+remoteUser);
+
 
     //private sockets
 

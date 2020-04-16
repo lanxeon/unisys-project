@@ -19,15 +19,22 @@ xhr.onload = function () {
                 input.name = "receiver";
                 input.value = element;
                 //submit it
-                $("#navbarForm").append(input);
-                $("#navbarForm").submit();
+                $("#sidebar-form").append(input);
+                $("#sidebar-form").submit();
             }
+
             //div for containing the button and other stuff
             let div = document.createElement("div");
             div.setAttribute("class", "usrBtnCon");
+            div.onclick = () => button.click();
+            if(typeof remoteUser !== undefined && remoteUser !== "404_ERR_NOT_FOUND")
+            {
+                if(element === remoteUser)
+                    div.setAttribute("class", "usrBtnCon selected");
+            }   
             div.appendChild(button);
 
-            $("#left").append(div);
+            $(".user-list").append(div);
         });
 
         console.log(objects);
@@ -37,6 +44,13 @@ xhr.onload = function () {
     }
 };
 xhr.send();
+
+
+// $(".usrBtnCon").each( (index, value) => {
+//         console.log("lol");
+//         if (this.children[0].innerHTML() === remoteUser)
+//             div.addClass("selected");
+//     });
 
 
 

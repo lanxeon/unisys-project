@@ -1,3 +1,12 @@
+/*
+Shades list(darkest to lightest:
+1. #121212
+2. #1a1a1a
+3. #262626
+4. #333333
+5. #404040
+6. #4d4d4d
+*/
 
 body{
     background-color: #121212;
@@ -5,6 +14,7 @@ body{
     width: 100%;
     margin: 0;
     padding: 0;
+    color: white;
 }
 
 html{
@@ -15,7 +25,7 @@ html{
 
 div, button{
     font-family:'Raleway';
-    /* font-size: 15px; */
+    font-size: 15px;
 }
 
 /* #localVideo {
@@ -47,7 +57,8 @@ canvas{
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    /* justify-content: space-around; */
+    justify-content: flex-start;
     background-color: #1a1a1a;
     border: 5px solid #1a1a1a;
     align-items: center;
@@ -59,13 +70,55 @@ canvas{
     flex-wrap: nowrap;
 }
 
+.usr-list-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+}
+
+nav a {
+    color: white;
+    opacity: 87%;
+}
+
+.user-list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: start;
+    align-items: center;
+    overflow: auto;
+    border-top: 1px solid #fff;
+    width: 100%;
+}
+
 .usrBtnCon {
-    height: 10%;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    height: 3em;
+    cursor: pointer;
+    border: 1px solid #fff;
+    border-top: none;
+    position: relative;
+    font-size: 20px;
 }
 
 div.usrBtnCon button {
-    background-color: aqua;
-    color: aliceblue;
+    cursor: pointer;
+    height: 100%;
+    /* background-color: #262626; */
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+.selected {
+    background-color: #1768af;
 }
 
 
@@ -113,7 +166,7 @@ div.usrBtnCon button {
 #msgBar {
     position: relative;
     width: 100%; 
-    height: 10%;
+    height: 8%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -157,12 +210,45 @@ label {
     /* background-color: #2196F3; */
     background-color: #1a1a1a;
     position: relative;
-    height: 5%;
+    height: 7%;
     width: 100%; 
-    text-align: center; 
+    /* text-align: center;  */
     color: white;
     opacity: 87%;
 }
+
+.chat-top-img-wrapper {
+    /* position: relative;
+    left: 30%;
+    width: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 80%;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0;
+    border: none; */
+
+    position: relative;
+    left: 30%;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 80%;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0;
+    border: none;
+    text-align: center;
+
+
+}
+
+.chat-top-img-wrapper img {
+    height: 100%;
+    border: none;
+    border-radius: 50%;
+}
+
 
 #topRecvContent{
     margin: 0;
@@ -406,7 +492,7 @@ button:focus{
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #262626;
+    /* background: #262626; */
     border-radius: 7px;
   }
   

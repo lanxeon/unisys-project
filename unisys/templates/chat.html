@@ -35,7 +35,14 @@
     </form> -->
 {% endif %}
 <div id = "left">
-    <form action="" method="POST" id="navbarForm" style="display: none;"></form> 
+    <form action="" method="POST" id="sidebar-form" style="display: none;"></form> 
+    <nav class = "usr-list-nav">
+        <a href="{{ url_for('home') }}"><i class="material-icons">home</i></a>
+    </nav>
+
+    <div class = "user-list">
+        <!--Will have content filled in by navbar.js script-->
+    </div>
 </div>
 
 {% if user_connected %}
@@ -52,6 +59,9 @@
     </div>
     <div id="chatBar">
         <div id = "topRecv">
+            <div class="chat-top-img-wrapper">
+                <img src = "{{ url_for('static', filename = 'images/userImages/default.jpg') }}">
+            </div>
             <p id="topRecvContent">{{ receiver }}</p>
         </div>
         <div id="messages">
